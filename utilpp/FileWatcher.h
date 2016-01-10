@@ -4,6 +4,8 @@
 #include <map>
 #include <functional>
 
+namespace util
+{
 class FileWatcher
 {
 public:
@@ -19,3 +21,4 @@ private:
 
     std::map<std::string, time_t> m_files;
 };
+}

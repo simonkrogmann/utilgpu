@@ -9,6 +9,8 @@
 
 #include "str.h"
 
+namespace util
+{
 Config::Config(const std::string& organization, const std::string& name)
     : m_settings{QString::fromStdString(organization),
                  QString::fromStdString(name)}
@@ -97,4 +99,5 @@ unsigned int Config::valueUInt(const std::string& key)
 void Config::setValue(const std::string& key, const unsigned int& value)
 {
     m_settings.setValue(QString::fromStdString(key), value);
+}
 }

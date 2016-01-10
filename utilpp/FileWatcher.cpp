@@ -4,6 +4,8 @@
 #include <cassert>
 #include <sys/stat.h>
 
+namespace util
+{
 FileWatcher::FileWatcher() : m_files{}
 {
 }
@@ -43,4 +45,5 @@ time_t FileWatcher::timeStamp(const std::string& file)
     const auto error = stat(file.c_str(), &stats);
     assert(error == 0);
     return stats.st_mtime;
+}
 }

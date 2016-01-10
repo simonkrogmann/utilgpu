@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+namespace util {
 class Config
 {
 public:
@@ -29,3 +30,4 @@ private:
     std::vector<std::string> m_additionalArguments;
     std::map<std::string, std::string> m_defaults;
 };
+}
