@@ -36,5 +36,5 @@ add_custom_target(format
 
 add_dependencies(utilpp format)
 
-install (TARGETS utilpp DESTINATION bin)
-install (DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DESTINATION utilpp FILES_MATCHING PATTERN "*.h")
+install (TARGETS utilpp EXPORT utilppTargets DESTINATION lib)
+install (DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DESTINATION include FILES_MATCHING PATTERN "*.h")
