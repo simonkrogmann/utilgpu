@@ -23,6 +23,6 @@ install:
   - make && sudo make install
   - cd ../..
 before_script:
-  - cppcheck ../viewer
+  - cppcheck ../utilpp
 script:
   - cmake .. && make && make test
