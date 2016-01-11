@@ -25,4 +25,4 @@ install:
 before_script:
   - cppcheck ../utilpp
 script:
-  - cmake .. && make && make test
+  - cmake .. -DCLANG_FORMAT=OFF && make && sudo make install && make test
