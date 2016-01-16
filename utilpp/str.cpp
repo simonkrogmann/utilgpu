@@ -2,18 +2,20 @@
 
 #include <string>
 #include <sstream>
+#include <cassert>
 
 namespace util
 {
-// replaces first occurence of old in target
+// replaces first occurrence of old in target
 void replace(std::string& target, const std::string& old,
              const std::string& with)
 {
     const auto position = target.find(old);
+    assert(position != std::string::npos);
     target.replace(position, old.length(), with);
 }
 
-// splits string at first occurence
+// splits string at first occurrence
 std::pair<std::string, std::string> split(const std::string& string,
                                           const std::string& at)
 {
