@@ -23,6 +23,6 @@ install:
   - make && sudo make install
   - cd ../..
 before_script:
-  - cppcheck ../utilpp
+  - cppcheck ../utilgpu
 script:
   - cmake .. -DCLANG_FORMAT=OFF && make && sudo make install && make test

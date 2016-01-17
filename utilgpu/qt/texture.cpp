@@ -1,7 +1,5 @@
-#include "file.h"
+#include "texture.h"
 
-#include <fstream>
-#include <sstream>
 #include <cassert>
 
 #include <QImage>
@@ -9,16 +7,6 @@
 
 namespace util
 {
-std::string loadFile(const std::string& filename)
-{
-    std::ifstream sourceFile(filename);
-    assert(!sourceFile.bad());
-
-    std::stringstream sourceBuffer;
-    sourceBuffer << sourceFile.rdbuf();
-    return sourceBuffer.str();
-}
-
 QImage loadImage(const std::string& filename)
 {
     const QImage image{QString::fromStdString(filename)};
