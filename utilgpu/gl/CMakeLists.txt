@@ -1,3 +1,5 @@
+find_package(glbinding REQUIRED)
+
 set(sources
     base.cpp
     viewport.cpp

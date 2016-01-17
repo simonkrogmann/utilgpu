@@ -1,3 +1,5 @@
+find_package(Qt5OpenGL REQUIRED)
+
 set(sources
     texture.cpp
     Config.cpp

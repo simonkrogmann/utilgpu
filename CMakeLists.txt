@@ -3,12 +3,6 @@ project(utilgpu)
 
 set(utilgpu_VERSION 0.1)
 
-find_package(glbinding REQUIRED)
-
-find_package(Qt5OpenGL  REQUIRED)
-
-include_directories(${GLBINDING_INCLUDE_DIR})
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra -Wpedantic -Wfloat-equal -Wold-style-cast")
 if (CMAKE_BUILD_TYPE STREQUAL Debug)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")
