@@ -5,7 +5,8 @@
 #include <string>
 #include <vector>
 
-namespace util {
+namespace util
+{
 class Config
 {
 public:

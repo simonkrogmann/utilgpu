@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.0)
-project(utilpp)
+project(utilgpu)
 
-set(utilpp_VERSION 0.1)
+set(utilgpu_VERSION 0.1)
 
 find_package(glbinding REQUIRED)
 
@@ -16,39 +16,39 @@ endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-add_subdirectory(utilpp)
+add_subdirectory(utilgpu)
 add_subdirectory(test)
 
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
-  "${CMAKE_CURRENT_BINARY_DIR}/utilppConfigVersion.cmake"
-  VERSION ${utilpp_VERSION}
+  "${CMAKE_CURRENT_BINARY_DIR}/utilgpuConfigVersion.cmake"
+  VERSION ${utilgpu_VERSION}
   COMPATIBILITY AnyNewerVersion
 )
 
-export(EXPORT utilppTargets
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/utilppTargets.cmake"
-  NAMESPACE utilpp::
+export(EXPORT utilgpuTargets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/utilgpuTargets.cmake"
+  NAMESPACE utilgpu::
 )
-configure_file(cmake/utilppConfig.cmake
-  "${CMAKE_CURRENT_BINARY_DIR}/utilppConfig.cmake"
+configure_file(cmake/utilgpuConfig.cmake
+  "${CMAKE_CURRENT_BINARY_DIR}/utilgpuConfig.cmake"
   COPYONLY
 )
 
-set(ConfigPackageLocation lib/cmake/utilpp)
-install(EXPORT utilppTargets
+set(ConfigPackageLocation lib/cmake/utilgpu)
+install(EXPORT utilgpuTargets
   FILE
-    utilppTargets.cmake
+    utilgpuTargets.cmake
   NAMESPACE
-    utilpp::
+    utilgpu::
   DESTINATION
     ${ConfigPackageLocation}
 )
 install(
   FILES
-    cmake/utilppConfig.cmake
-    "${CMAKE_CURRENT_BINARY_DIR}/utilppConfigVersion.cmake"
+    cmake/utilgpuConfig.cmake
+    "${CMAKE_CURRENT_BINARY_DIR}/utilgpuConfigVersion.cmake"
   DESTINATION
     ${ConfigPackageLocation}
 )

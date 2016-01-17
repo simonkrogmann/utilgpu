@@ -6,8 +6,7 @@
 #include <cassert>
 
 #include <QSettings>
-
-#include "str.h"
+#include <utilgpu/cpp/str.h>
 
 namespace util
 {

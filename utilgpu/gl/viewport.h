@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../StateKeeper.h"
+#include <utilgpu/cpp/StateKeeper.h>
 
 namespace util
 {
