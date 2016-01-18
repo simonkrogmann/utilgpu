@@ -1,5 +1,5 @@
 option(CLANG_FORMAT "Add clang formatting to the build step" ON)
-option(BUILD_CPP "Build cpp sublibrary" ON)
+option(CLANG_TIDY "Add clang tidy to the build step" ON)
 option(BUILD_QT  "Build qt sublibrary (requires Qt)" OFF)
 option(BUILD_GL  "Build gl sublibrary (requires glbinding)" OFF)
 option(BUILD_CL  "Build cl sublibrary (requires OpenCL)" OFF)
@@ -16,6 +16,17 @@ function(add_format_target target files)
     endif()
 endfunction()
 
+function(add_check_target target sources)
+    if (CLANG_TIDY)
+        add_custom_target(${target}-check
+            COMMAND clang-tidy -p ${CMAKE_BINARY_DIR} ${sources}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+            COMMENT "Checking code"
+            VERBATIM)
+        add_dependencies(${target} ${target}-check)
+    endif()
+endfunction()
+
 function(create_target name sources includes libraries)
     set(files ${sources} ${includes})
     add_library(${name} ${files})
@@ -23,13 +34,12 @@ function(create_target name sources includes libraries)
     target_include_directories(${name} PRIVATE ${CMAKE_SOURCE_DIR})
     target_link_libraries(${name} PUBLIC ${libraries})
     add_format_target(${name} "${files}")
+    add_check_target(${name} "${sources}")
     install (TARGETS ${name} EXPORT utilgpuTargets DESTINATION lib)
     install (DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DESTINATION include/utilgpu FILES_MATCHING REGEX ".*\\.h(pp)?")
 endfunction()
 
-if(BUILD_CPP OR BUILD_ALL)
-    add_subdirectory(cpp)
-endif()
+add_subdirectory(cpp)
 if(BUILD_QT OR BUILD_ALL)
     add_subdirectory(qt)
 endif()
