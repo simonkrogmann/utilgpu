@@ -26,7 +26,6 @@ void Config::load(const int argc, char* argv[])
     const auto options = parseArguments(arguments);
 
     setValues(options);
-    m_settings.sync();
 }
 
 void Config::setDefaults(const std::map<std::string, std::string>& defaults)
@@ -78,6 +77,7 @@ void Config::setValues(const std::map<std::string, std::string>& pairs)
                                 QString::fromStdString(pair.second));
         }
     }
+    m_settings.sync();
 }
 
 std::string Config::value(const std::string& key)
@@ -98,5 +98,6 @@ unsigned int Config::valueUInt(const std::string& key)
 void Config::setValue(const std::string& key, const unsigned int& value)
 {
     m_settings.setValue(QString::fromStdString(key), value);
+    m_settings.sync();
 }
 }
