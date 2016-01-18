@@ -8,3 +8,5 @@ A utility library for graphics related tasks written in C++.
 Depends on Qt 5
 ###gl
 Depends on glbinding
+###cl
+Depends on OpenCL

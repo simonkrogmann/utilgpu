@@ -25,5 +25,5 @@ install:
 before_script:
   - cppcheck ../utilgpu
 script:
-  - cmake .. -DCLANG_FORMAT=OFF -DBUILD_ALL=ON
+  - cmake .. -DCLANG_FORMAT=OFF -DBUILD_GL=ON -DBUILD_QT=ON
   - make && sudo make install && make test
