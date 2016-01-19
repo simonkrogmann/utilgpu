@@ -46,8 +46,8 @@ std::unique_ptr<YAMLNode> YAMLNode::parseYAML(std::string filename)
         {
             const auto pos = line.find(":");
             const auto key = line.substr(level, pos - level);
-            current->m_children[key] =
-                std::make_unique<YAMLNode>(current, level);
+            current->m_children.push_back(
+                {key, std::make_unique<YAMLNode>(current, level)});
             current = (*current)[key];
 
             const auto rest = line.substr(pos + 1);
@@ -64,10 +64,14 @@ std::unique_ptr<YAMLNode> YAMLNode::parseYAML(std::string filename)
 
 YAMLNode* YAMLNode::operator[](const std::string& key)
 {
-    if (m_children.find(key) == m_children.end())
+    for (auto& child : m_children)
     {
-        m_children[key] = std::make_unique<YAMLNode>(this, m_level + 1);
+        if (child.first == key)
+        {
+            return child.second.get();
+        }
     }
-    return m_children[key].get();
+    m_children.push_back({key, std::make_unique<YAMLNode>(this, m_level + 1)});
+    return m_children.back().second.get();
 }
 }

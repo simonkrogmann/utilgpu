@@ -21,7 +21,8 @@ public:
     YAMLNode* operator[](const std::string& key);
 
     YAMLNode* parent() const { return m_parent; }
-    const std::map<std::string, std::unique_ptr<YAMLNode>>& children() const
+    const std::vector<std::pair<std::string, std::unique_ptr<YAMLNode>>>& children()
+        const
     {
         return m_children;
     }
@@ -29,7 +30,7 @@ public:
     std::string value() const { return m_values[0]; }
 private:
     YAMLNode* const m_parent;
-    std::map<std::string, std::unique_ptr<YAMLNode>> m_children;
+    std::vector<std::pair<std::string, std::unique_ptr<YAMLNode>>> m_children;
     std::vector<std::string> m_values;
     const int m_level;
 };
