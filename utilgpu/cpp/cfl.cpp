@@ -105,17 +105,18 @@ std::unique_ptr<CFLNode> CFLNode::ErrorNode(const unsigned int& lineNumber,
 
 bool CFLNode::valid() const
 {
-    return name() == "root" || m_level != -1;
+    return m_name == "root" || m_level != -1;
 }
 
 std::string CFLNode::message() const
 {
     assert(!valid());
-    return name();
+    return m_name;
 }
 
 CFLNode* CFLNode::addChild(const std::string& name, const int& level)
 {
+    assert(valid());
     auto newNode = std::make_unique<CFLNode>(name, this, level);
     m_children.push_back(std::move(newNode));
     return m_children.back().get();
@@ -123,32 +124,38 @@ CFLNode* CFLNode::addChild(const std::string& name, const int& level)
 
 CFLNode* CFLNode::parent() const
 {
+    assert(valid());
     return m_parent;
 }
 
 const std::vector<std::unique_ptr<CFLNode>>& CFLNode::children() const
 {
+    assert(valid());
     return m_children;
 }
 
 std::string CFLNode::name() const
 {
+    assert(valid());
     return m_name;
 }
 
 std::vector<std::string> CFLNode::values() const
 {
+    assert(valid());
     return m_values;
 }
 
 std::string CFLNode::value() const
 {
+    assert(valid());
     assert(m_values.size() > 0);
     return m_values[0];
 }
 
 CFLNode* CFLNode::operator[](const std::string& key)
 {
+    assert(valid());
     for (auto& child : m_children)
     {
         if (child->name() == key)
