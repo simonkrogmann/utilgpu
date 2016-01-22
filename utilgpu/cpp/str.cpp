@@ -61,4 +61,22 @@ std::pair<int, int> splitNumbers(const std::string& string,
     std::istringstream(numbers.second) >> second;
     return {first, second};
 }
+
+std::string stripSpaces(const std::string& string)
+{
+    size_t begin = 0, end = string.size() - 1;
+    for (; string[begin] == ' '; ++begin)
+        ;
+    for (; string[end] == ' '; --end)
+        ;
+    return string.substr(begin, end - begin + 1);
+}
+
+size_t leadingSpaces(const std::string& string)
+{
+    size_t number = 0;
+    for (; string[number] == ' '; ++number)
+        ;
+    return number;
+}
 }

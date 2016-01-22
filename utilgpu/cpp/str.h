@@ -19,4 +19,7 @@ bool endsWith(const std::string& string, const std::string& ending);
 
 std::pair<int, int> splitNumbers(const std::string& string,
                                  const std::string& at);
+
+std::string stripSpaces(const std::string& string);
+size_t leadingSpaces(const std::string& string);
 }
