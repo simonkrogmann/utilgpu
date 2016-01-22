@@ -2,7 +2,6 @@ set(sources
     FileWatcher.cpp
     file.cpp
     str.cpp
-    yaml.cpp
     StateKeeper.cpp
 )
 
@@ -10,7 +9,6 @@ set(includes
     FileWatcher.h
     file.h
     str.h
-    yaml.h
     Group.h
     StateKeeper.h
 )
