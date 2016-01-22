@@ -11,18 +11,25 @@ class CFLNode
 {
 public:
     static std::unique_ptr<CFLNode> parseCFL(std::string filename);
+    static std::unique_ptr<CFLNode> ErrorNode(const unsigned int& lineNumber,
+                                              const std::string& message);
 
-    CFLNode(const std::string& name, CFLNode* parent = nullptr, int level = -1);
+    CFLNode(const std::string& name, CFLNode* parent = nullptr,
+            const int& level = -1);
     ~CFLNode();
 
     CFLNode* operator[](const std::string& key);
-    CFLNode* parent();
-    std::vector<std::unique_ptr<CFLNode>>& children();
-    std::string name();
-    std::vector<std::string> values();
-    std::string value();
+    CFLNode* parent() const;
+    const std::vector<std::unique_ptr<CFLNode>>& children() const;
+    std::string name() const;
+    std::vector<std::string> values() const;
+    std::string value() const;
+    bool valid() const;
+    std::string message() const;
 
 private:
+    CFLNode* addChild(const std::string& name, const int& level);
+
     std::string m_name;
     CFLNode* const m_parent;
     const int m_level;

@@ -2,7 +2,6 @@
 
 #include <fstream>
 #include <cassert>
-#include <iostream>
 
 #include "str.h"
 
@@ -20,6 +19,10 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
 
     std::ifstream sourceFile(filename);
     std::string line;
+    int valueLevel = -1;
+    unsigned int lineNumber = 1;
+    bool directValue = false;
+    unsigned int lastNodeLine = 0;
     while (std::getline(sourceFile, line))
     {
         auto level = static_cast<int>(leadingSpaces(line));
@@ -33,50 +36,112 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
         if (colonPosition != std::string::npos)
         {
             auto pair = split(line, ":");
-            auto name = stripSpaces(pair.first);
-            std::cout << level << name << std::endl;
+            const auto name = stripSpaces(pair.first);
+            if (name.size() <= 0)
+            {
+                return ErrorNode(lineNumber, "Node names cannot be empty.");
+            }
             while (current->m_level >= level)
             {
                 current = current->parent();
             }
-            auto newNode = std::make_unique<CFLNode>(name, current, level);
-            current->m_children.push_back(std::move(newNode));
-            current = current->m_children.back().get();
+            if (current->m_values.size() > 0)
+            {
+                return ErrorNode(lineNumber,
+                                 "Nodes cannot have children and values.");
+            }
+            current = current->addChild(name, level);
+            valueLevel = -1;
+            level += colonPosition;
+            directValue = false;
+            lastNodeLine = lineNumber;
 
             line = pair.second;
         }
         line = stripSpaces(line);
         if (line.size() > 0)
         {
+            if (directValue)
+            {
+                return ErrorNode(
+                    lineNumber,
+                    "A node with a direct value cannot have any other values.");
+            }
+            else if (valueLevel != -1 && valueLevel != level)
+            {
+                return ErrorNode(lineNumber,
+                                 "All values of a node must be aligned.");
+            }
+            else if (level <= current->m_level)
+            {
+                return ErrorNode(
+                    lineNumber,
+                    "A value must be indented deeper than its node.");
+            }
+            directValue = lastNodeLine == lineNumber;
+            valueLevel = level;
+            assert(current->m_children.size() == 0);
             current->m_values.push_back(line);
         }
+        ++lineNumber;
     }
     return root;
 }
-CFLNode::CFLNode(const std::string& name, CFLNode* parent, int level)
+CFLNode::CFLNode(const std::string& name, CFLNode* parent, const int& level)
     : m_name{name}, m_parent{parent}, m_level{level}
 {
 }
+
 CFLNode::~CFLNode()
 {
 }
-CFLNode* CFLNode::parent()
+
+std::unique_ptr<CFLNode> CFLNode::ErrorNode(const unsigned int& lineNumber,
+                                            const std::string& message)
+{
+    return std::make_unique<CFLNode>(
+        "Error in line " + std::to_string(lineNumber) + ": " + message);
+}
+
+bool CFLNode::valid() const
+{
+    return name() == "root" || m_level != -1;
+}
+
+std::string CFLNode::message() const
+{
+    assert(!valid());
+    return name();
+}
+
+CFLNode* CFLNode::addChild(const std::string& name, const int& level)
+{
+    auto newNode = std::make_unique<CFLNode>(name, this, level);
+    m_children.push_back(std::move(newNode));
+    return m_children.back().get();
+}
+
+CFLNode* CFLNode::parent() const
 {
     return m_parent;
 }
-std::vector<std::unique_ptr<CFLNode>>& CFLNode::children()
+
+const std::vector<std::unique_ptr<CFLNode>>& CFLNode::children() const
 {
     return m_children;
 }
-std::string CFLNode::name()
+
+std::string CFLNode::name() const
 {
     return m_name;
 }
-std::vector<std::string> CFLNode::values()
+
+std::vector<std::string> CFLNode::values() const
 {
     return m_values;
 }
-std::string CFLNode::value()
+
+std::string CFLNode::value() const
 {
     assert(m_values.size() > 0);
     return m_values[0];
@@ -91,7 +156,6 @@ CFLNode* CFLNode::operator[](const std::string& key)
             return child.get();
         }
     }
-    m_children.push_back(std::make_unique<CFLNode>(key, this, m_level + 1));
-    return m_children.back().get();
+    return addChild(key, m_level + 1);
 }
 }
