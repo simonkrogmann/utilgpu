@@ -3,7 +3,6 @@
 #include <fstream>
 #include <sstream>
 #include <cassert>
-
 #include <sys/stat.h>
 
 namespace util

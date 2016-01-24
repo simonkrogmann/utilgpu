@@ -1,6 +1,6 @@
 option(CLANG_FORMAT "Add clang formatting to the build step" ON)
 option(BUILD_QT  "Build qt sublibrary (requires Qt)" OFF)
-option(BUILD_GL  "Build gl sublibrary (requires glbinding)" OFF)
+option(BUILD_GL  "Build gl sublibrary (requires qt sublibrary and glbinding)" OFF)
 option(BUILD_CL  "Build cl sublibrary (requires OpenCL)" OFF)
 option(BUILD_ALL "Build all sublibraries" OFF)
 
@@ -25,6 +25,10 @@ function(create_target name sources includes libraries)
     install (TARGETS ${name} EXPORT utilgpuTargets DESTINATION lib)
     install (DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DESTINATION include/utilgpu FILES_MATCHING REGEX ".*\\.h(pp)?")
 endfunction()
+
+if (BUILD_GL AND NOT (BUILD_QT OR BUILD_ALL))
+    message( FATAL_ERROR "The gl sublibrary requires the qt sublibrary" )
+endif()
 
 add_subdirectory(cpp)
 if(BUILD_QT OR BUILD_ALL)

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <cassert>
 
-#include "str.h"
+#include <utilgpu/cpp/str.h>
 
 namespace util
 {
