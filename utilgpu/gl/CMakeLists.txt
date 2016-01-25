@@ -9,6 +9,7 @@ set(sources
     Framebuffer.cpp
     Drawable.cpp
     ScreenAlignedQuad.cpp
+    FrameTimeDisplay.cpp
 )
 
 set(includes
@@ -20,6 +21,7 @@ set(includes
     Framebuffer.h
     Drawable.h
     ScreenAlignedQuad.h
+    FrameTimeDisplay.h
 )
 
 set(libraries
