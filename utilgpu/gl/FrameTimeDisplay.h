@@ -16,7 +16,7 @@ public:
     virtual ~FrameTimeDisplay();
 
     virtual void init();
-    void render(const viewport::Viewport& viewport);
+    void render(const viewport::Viewport&);
 
 private:
     void reset();

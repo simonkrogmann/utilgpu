@@ -30,7 +30,7 @@ std::string onscreendisplay = R"(#version 140
 layout(location = 0) out vec4 color;
 in vec2 position;
 
-uniform int numDigits;
+uniform uint numDigits;
 uniform int number[10];
 
 const int[10 * 7] table = int[](
@@ -111,7 +111,7 @@ void FrameTimeDisplay::reset()
     m_start = std::chrono::steady_clock::now();
 }
 
-void FrameTimeDisplay::render(const viewport::Viewport& viewport)
+void FrameTimeDisplay::render(const viewport::Viewport&)
 {
     if (!m_program->isLinked())
     {
@@ -127,13 +127,13 @@ void FrameTimeDisplay::render(const viewport::Viewport& viewport)
     ++m_frames;
 
     std::vector<int> number = toDigits(static_cast<unsigned int>(m_value));
-    int numDigits = number.size();
+    auto numDigits = static_cast<unsigned int>(number.size());
     number.resize(10, 0);
 
     auto keeper = viewport::use(viewport::Viewport{0, 0, 20 * numDigits, 40});
     m_program->use();
     glUniform1iv((*m_program)["number"], 10, number.data());
-    glUniform1i((*m_program)["numDigits"], numDigits);
+    glUniform1ui((*m_program)["numDigits"], numDigits);
     m_screen.draw();
 }
 }

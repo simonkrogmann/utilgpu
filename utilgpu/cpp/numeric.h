@@ -4,5 +4,5 @@
 
 namespace util
 {
-std::vector<int> toDigits(const unsigned int& number);
+std::vector<int> toDigits(unsigned int number);
 }
