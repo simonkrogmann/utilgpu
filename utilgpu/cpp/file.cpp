@@ -5,6 +5,8 @@
 #include <cassert>
 #include <sys/stat.h>
 
+#include "str.h"
+
 namespace util
 {
 std::string loadFile(const std::string& filename)
@@ -15,6 +17,15 @@ std::string loadFile(const std::string& filename)
     std::stringstream sourceBuffer;
     sourceBuffer << sourceFile.rdbuf();
     return sourceBuffer.str();
+}
+
+std::string directoryOf(const std::string& filename)
+{
+    if (contains(filename, "/"))
+    {
+        return util::rsplit(filename, "/").first + "/";
+    }
+    return "";
 }
 
 bool fileExists(const std::string& filename)
@@ -30,5 +41,10 @@ std::string File::content() const
 bool File::exists() const
 {
     return fileExists(path);
+}
+
+std::string File::directory() const
+{
+    return directoryOf(path);
 }
 }
