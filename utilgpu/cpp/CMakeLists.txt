@@ -15,8 +15,10 @@ set(includes
     cfl.h
     Group.h
     StateKeeper.h
+    resource.h
+    resource.hpp
 )
 
 set(libraries)
 
-create_target(cpp "${sources}" "${includes}" "${libraries}")
+create_library(cpp "${sources}" "${includes}" "${libraries}")

@@ -15,4 +15,4 @@ set(libraries
     Qt5::OpenGL
 )
 
-create_target(qt "${sources}" "${includes}" "${libraries}")
+create_library(qt "${sources}" "${includes}" "${libraries}")

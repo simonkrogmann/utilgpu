@@ -10,10 +10,11 @@ std::string directoryOf(const std::string& filename);
 
 struct File
 {
+    File(const std::string& name, const std::string& path);
     std::string name;
     std::string path;
-    std::string content() const;
+    virtual std::string content() const;
     std::string directory() const;
-    bool exists() const;
+    virtual bool exists() const;
 };
 }

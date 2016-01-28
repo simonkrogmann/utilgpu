@@ -15,4 +15,4 @@ set(libraries
     ${OpenCL_LIBRARIES}
 )
 
-create_target(cl "${sources}" "${includes}" "${libraries}")
+create_library(cl "${sources}" "${includes}" "${libraries}")

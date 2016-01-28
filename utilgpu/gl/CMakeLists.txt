@@ -24,10 +24,16 @@ set(includes
     FrameTimeDisplay.h
 )
 
+set(resources
+    shader/screenalignedquad.vert
+    shader/onscreendisplay.frag
+)
+
 set(libraries
     cpp
     qt
     glbinding::glbinding
 )
 
-create_target(gl "${sources}" "${includes}" "${libraries}")
+create_library(gl "${sources}" "${includes}" "${libraries}")
+generate_resource_header(gl "${resources}")

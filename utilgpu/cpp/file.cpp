@@ -28,6 +28,11 @@ std::string directoryOf(const std::string& filename)
     return "";
 }
 
+File::File(const std::string& name, const std::string& path)
+    : name{name}, path{path}
+{
+}
+
 bool fileExists(const std::string& filename)
 {
     struct stat stats;
