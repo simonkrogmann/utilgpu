@@ -9,20 +9,30 @@ int main(int argc, char* argv[])
 {
     if (argc < 3)
     {
-        std::cout << "Not enough arguments." << std::endl;
-        exit(1);
+        std::cout << "Usage: " << argv[0] << " <output> <resources>"
+                  << std::endl;
+        return 1;
     }
 
     std::vector<util::File> resources;
+    time_t mostRecentlyEdited = 0;
     for (int i = 2; i < argc; ++i)
     {
-        util::File resource{argv[i], argv[i]};
+        util::File resource{argv[i]};
         if (!resource.exists())
         {
             std::cout << resource.path << " was not found." << std::endl;
-            exit(1);
+            return 1;
         }
+        mostRecentlyEdited = std::max(mostRecentlyEdited, resource.timeStamp());
         resources.push_back(resource);
+    }
+
+    util::File output{argv[1]};
+    if (output.exists() && output.timeStamp() > mostRecentlyEdited)
+    {
+        // generated file is already up to date
+        return 0;
     }
 
     std::ofstream file{argv[1]};
@@ -35,8 +45,10 @@ int main(int argc, char* argv[])
             file << ",";
         }
         firstRun = false;
-        file << "{\"" << resource.name << "\",R\"(" << resource.content()
+        file << "{\"" << resource.path << "\",R\"(" << resource.content()
              << ")\"}";
     }
     file << "};";
+
+    return 0;
 }
