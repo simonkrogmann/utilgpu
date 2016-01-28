@@ -14,12 +14,12 @@ FileWatcher::~FileWatcher()
 {
 }
 
-void FileWatcher::addFile(const std::string& file)
+void FileWatcher::addFile(const File& file)
 {
-    m_files[file] = timeStamp(file);
+    m_files[file] = file.timeStamp();
 }
 
-void FileWatcher::removeFile(const std::string& file)
+void FileWatcher::removeFile(const File& file)
 {
     m_files.erase(file);
 }
@@ -29,7 +29,7 @@ bool FileWatcher::check()
     bool changed = false;
     for (const auto& file : m_files)
     {
-        const auto newTime = timeStamp(file.first);
+        const auto newTime = file.first.timeStamp();
         if (newTime != file.second)
         {
             m_files[file.first] = newTime;
@@ -37,13 +37,5 @@ bool FileWatcher::check()
         }
     }
     return changed;
-}
-
-time_t FileWatcher::timeStamp(const std::string& file)
-{
-    struct stat stats;
-    const auto error = stat(file.c_str(), &stats);
-    assert(error == 0);
-    return stats.st_mtime;
 }
 }

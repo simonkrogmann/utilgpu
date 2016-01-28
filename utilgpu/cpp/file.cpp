@@ -33,6 +33,10 @@ File::File(const std::string& name, const std::string& path)
 {
 }
 
+File::File(const std::string& path) : File{rsplit(path, "/").second, path}
+{
+}
+
 bool fileExists(const std::string& filename)
 {
     struct stat stats;
@@ -51,5 +55,17 @@ bool File::exists() const
 std::string File::directory() const
 {
     return directoryOf(path);
+}
+
+time_t File::timeStamp() const
+{
+    struct stat stats;
+    const auto error = stat(path.c_str(), &stats);
+    assert(error == 0);
+    return stats.st_mtime;
+}
+bool File::operator<(const File& other) const
+{
+    return path < other.path;
 }
 }

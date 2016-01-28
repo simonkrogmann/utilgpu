@@ -26,12 +26,8 @@ void FrameTimeDisplay::init()
 {
     reset();
     const util::Group<Shader> shaders(
-        Shader::vertex(
-            Resource("screenalignedquad.vert", "shader/screenalignedquad.vert"),
-            {}),
-        Shader::fragment(
-            Resource("onscreendisplay.frag", "shader/onscreendisplay.frag"),
-            {}));
+        Shader::vertex(Resource("shader/screenalignedquad.vert"), {}),
+        Shader::fragment(Resource("shader/onscreendisplay.frag"), {}));
     m_program = std::make_unique<Program>(shaders);
 }
 

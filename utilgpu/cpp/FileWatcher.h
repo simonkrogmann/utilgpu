@@ -4,6 +4,8 @@
 #include <map>
 #include <functional>
 
+#include <utilgpu/cpp/file.h>
+
 namespace util
 {
 class FileWatcher
@@ -12,13 +14,11 @@ public:
     FileWatcher();
     ~FileWatcher();
 
-    void addFile(const std::string& file);
-    void removeFile(const std::string& file);
+    void addFile(const File& file);
+    void removeFile(const File& file);
     bool check();
 
 private:
-    time_t timeStamp(const std::string& file);
-
-    std::map<std::string, time_t> m_files;
+    std::map<File, time_t> m_files;
 };
 }
