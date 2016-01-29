@@ -38,4 +38,4 @@ set(libraries
 )
 
 create_library(gl "${sources}" "${includes}" "${libraries}")
-generate_resource_header(gl "${resources}")
+generate_resource_header(utilgpu gl "${resources}")

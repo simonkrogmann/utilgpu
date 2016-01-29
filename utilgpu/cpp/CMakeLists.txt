@@ -5,6 +5,7 @@ set(sources
     numeric.cpp
     cfl.cpp
     StateKeeper.cpp
+    resource.cpp
 )
 
 set(includes
@@ -16,7 +17,6 @@ set(includes
     Group.h
     StateKeeper.h
     resource.h
-    resource.hpp
 )
 
 set(libraries)

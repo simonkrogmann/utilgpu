@@ -43,6 +43,7 @@ install(
   FILES
     cmake/utilgpuConfig.cmake
     "${CMAKE_CURRENT_BINARY_DIR}/utilgpuConfigVersion.cmake"
+    cmake/exportFunctions.cmake
   DESTINATION
     ${ConfigPackageLocation}
 )
