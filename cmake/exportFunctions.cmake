@@ -17,7 +17,7 @@ function(create_library project name sources includes libraries)
     target_link_libraries(${name} PUBLIC ${libraries})
     add_format_target(${name} "${files}")
     install (TARGETS ${name} EXPORT ${project}Targets DESTINATION lib)
-    install (DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DESTINATION include/${projecr} FILES_MATCHING REGEX ".*\\.h(pp)?")
+    install (DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DESTINATION include/${project} FILES_MATCHING REGEX ".*\\.h(pp)?")
 endfunction()
 
 function(create_executable project name sources includes libraries)
