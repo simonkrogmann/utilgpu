@@ -1,17 +1,11 @@
 cmake_minimum_required (VERSION 3.0)
 set(project utilgpu)
 project(${project})
+set("${project}_VERSION" 0.1)
 
-set(utilgpu_VERSION 0.1)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra -Wpedantic -Wfloat-equal -Wold-style-cast")
-if (CMAKE_BUILD_TYPE STREQUAL Debug)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")
-endif()
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-
+set(use_utilggpu_compilation_options ON)
 include("cmake/exportFunctions.cmake")
+
 add_subdirectory(utilgpu)
 add_subdirectory(test)
 
