@@ -37,5 +37,5 @@ set(libraries
     glbinding::glbinding
 )
 
-create_library(gl "${sources}" "${includes}" "${libraries}")
-generate_resource_header(utilgpu gl "${resources}")
+create_library(${project} gl "${sources}" "${includes}" "${libraries}")
+generate_resource_header(${project} gl "${resources}")

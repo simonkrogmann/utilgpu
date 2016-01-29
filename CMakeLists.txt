@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 3.0)
-project(utilgpu)
+set(project utilgpu)
+project(${project})
 
 set(utilgpu_VERSION 0.1)
 
@@ -10,6 +11,7 @@ endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+include("cmake/exportFunctions.cmake")
 add_subdirectory(utilgpu)
 add_subdirectory(test)
 

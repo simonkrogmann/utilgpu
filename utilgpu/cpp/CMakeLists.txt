@@ -21,4 +21,4 @@ set(includes
 
 set(libraries)
 
-create_library(cpp "${sources}" "${includes}" "${libraries}")
+create_library(${project} cpp "${sources}" "${includes}" "${libraries}")

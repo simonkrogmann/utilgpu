@@ -10,4 +10,4 @@ set(libraries
     cpp
 )
 
-create_executable(utilgpu-resource-loader "${sources}" "${includes}" "${libraries}")
+create_executable(${project} utilgpu-resource-loader "${sources}" "${includes}" "${libraries}")
