@@ -28,6 +28,12 @@ std::string directoryOf(const std::string& filename)
     return "";
 }
 
+File::File(const std::string& name, const std::string& path,
+           const std::string& content)
+    : name{name}, path{path}, m_content{content}, m_storesContent{true}
+{
+}
+
 File::File(const std::string& name, const std::string& path)
     : name{name}, path{path}
 {
@@ -45,10 +51,18 @@ bool fileExists(const std::string& filename)
 
 std::string File::content() const
 {
+    if (m_storesContent)
+    {
+        return m_content;
+    }
     return loadFile(path);
 }
 bool File::exists() const
 {
+    if (m_storesContent)
+    {
+        return true;
+    }
     return fileExists(path);
 }
 
@@ -59,6 +73,10 @@ std::string File::directory() const
 
 time_t File::timeStamp() const
 {
+    if (m_storesContent)
+    {
+        return 0;
+    }
     struct stat stats;
     const auto error = stat(path.c_str(), &stats);
     assert(error == 0);

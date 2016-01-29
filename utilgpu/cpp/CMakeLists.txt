@@ -5,7 +5,6 @@ set(sources
     numeric.cpp
     cfl.cpp
     StateKeeper.cpp
-    resource.cpp
 )
 
 set(includes

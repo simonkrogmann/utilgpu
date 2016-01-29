@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
     file << "#pragma once\n#include <map>\n";
     file << "const long long " << projectName << " = "
          << std::hash<std::string>()(projectName) << ";";
-    file << "template<> inline util::Resource loadResource<" << projectName
+    file << "template<> inline util::File loadResource<" << projectName
          << ">(const std::string& "
             "name) {";
     file << "std::map<std::string, std::string> resources {";
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
         file << "{\"" << resource.path << "\", R\"(" << resource.content()
              << ")\"}";
     }
-    file << "}; return {name, resources.at(name)}; }";
+    file << "}; return {name, name, resources.at(name)}; }";
 
     return 0;
 }
