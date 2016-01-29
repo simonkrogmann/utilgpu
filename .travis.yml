@@ -15,9 +15,15 @@ addons:
       - cppcheck
       - qtbase5-dev
       - libqt5opengl5-dev
+      - xorg-dev
+      - libglu1-mesa-dev
 install:
   - mkdir build && cd build
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+  - git clone https://github.com/glfw/glfw.git
+  - cd glfw && mkdir build && cd build && cmake .. -DBUILD_SHARED_LIBS=ON
+  - make && sudo make install
+  - cd ../..
   - git clone https://github.com/cginternals/glbinding.git
   - cd glbinding && mkdir build && cd build && cmake .. -DOPTION_BUILD_TOOLS=OFF
   - make && sudo make install
@@ -25,5 +31,5 @@ install:
 before_script:
   - cppcheck ../utilgpu
 script:
-  - cmake .. -DCLANG_FORMAT=OFF -DBUILD_GL=ON -DBUILD_QT=ON
+  - cmake .. -DCLANG_FORMAT=OFF -DBUILD_GL=ON -DBUILD_QT=ON -DBUILD_WINDOW=ON
   - make && sudo make install && make test
