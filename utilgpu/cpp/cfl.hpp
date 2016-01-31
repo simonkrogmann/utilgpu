@@ -28,7 +28,7 @@ std::array<float, size> CFLNode::valueVector(
         assert(i == 1 || i == size);
         if (i == 1)
         {
-            results.fill(results[i]);
+            results.fill(results[0]);
         }
     }
     return results;
