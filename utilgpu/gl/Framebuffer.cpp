@@ -11,6 +11,8 @@
 
 using namespace gl;
 
+namespace util
+{
 Framebuffer* Framebuffer::None()
 {
     return new Framebuffer();
@@ -85,7 +87,7 @@ Framebuffer::Framebuffer(Framebuffer&& old)
     old.m_depth = 0;
 }
 
-util::StateKeeper Framebuffer::use(const GLenum& mode) const
+StateKeeper Framebuffer::use(const GLenum& mode) const
 {
     if (m_useNone)
     {
@@ -93,7 +95,7 @@ util::StateKeeper Framebuffer::use(const GLenum& mode) const
                 {
                 }};
     }
-    const auto old = util::glGetInteger(GL_FRAMEBUFFER_BINDING);
+    const auto old = glGetInteger(GL_FRAMEBUFFER_BINDING);
     glBindFramebuffer(mode, m_framebuffer);
     return {[=]()
             {
@@ -108,7 +110,7 @@ void Framebuffer::save(const std::string& filename)
     std::vector<unsigned char> imageData(m_width * m_height * 4);
     glReadPixels(0, 0, m_width, m_height, GL_BGRA, GL_UNSIGNED_BYTE,
                  &imageData[0]);
-    util::saveImage(imageData, m_width, m_height, filename);
+    saveImage(imageData, m_width, m_height, filename);
 }
 
 void Framebuffer::resize(const unsigned int& width, const unsigned int& height)
@@ -134,7 +136,8 @@ void Framebuffer::resize(const unsigned int& width, const unsigned int& height)
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
 
-void Framebuffer::resize(const util::viewport::Viewport& viewport)
+void Framebuffer::resize(const viewport::Viewport& viewport)
 {
     resize(viewport.width, viewport.height);
+}
 }

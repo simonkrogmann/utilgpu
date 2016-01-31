@@ -1,5 +1,7 @@
 find_package(glbinding REQUIRED)
 
+set(target gl)
+
 set(sources
     base.cpp
     viewport.cpp
@@ -11,6 +13,7 @@ set(sources
     ScreenAlignedQuad.cpp
     FrameTimeDisplay.cpp
     Renderer.cpp
+    GroundPlane.cpp
 )
 
 set(includes
@@ -24,11 +27,13 @@ set(includes
     ScreenAlignedQuad.h
     FrameTimeDisplay.h
     Renderer.h
+    GroundPlane.h
 )
 
 set(resources
     shader/screenalignedquad.vert
     shader/onscreendisplay.frag
+    shader/groundplane.vert
 )
 
 set(libraries
@@ -37,5 +42,5 @@ set(libraries
     glbinding::glbinding
 )
 
-create_library(${project} gl "${sources}" "${includes}" "${libraries}")
-generate_resource_header(${project} gl "${resources}")
+create_library(${project} ${target} "${sources}" "${includes}" "${libraries}")
+generate_resource_header(${project} ${target} "${resources}")

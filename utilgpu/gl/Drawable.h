@@ -4,6 +4,8 @@
 
 using namespace gl;
 
+namespace util
+{
 class Drawable
 {
 public:
@@ -15,3 +17,4 @@ public:
 protected:
     GLuint m_vao;
 };
+}

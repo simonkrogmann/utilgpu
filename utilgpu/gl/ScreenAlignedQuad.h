@@ -2,6 +2,8 @@
 
 #include <utilgpu/gl/Drawable.h>
 
+namespace util
+{
 class ScreenAlignedQuad : public Drawable
 {
 public:
@@ -10,3 +12,4 @@ public:
 
     virtual void draw() override;
 };
+}

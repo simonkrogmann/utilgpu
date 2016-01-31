@@ -12,7 +12,7 @@ namespace util
 std::string loadFile(const std::string& filename)
 {
     std::ifstream sourceFile(filename);
-    assert(!sourceFile.bad());
+    assert(sourceFile.is_open());
 
     std::stringstream sourceBuffer;
     sourceBuffer << sourceFile.rdbuf();
@@ -28,6 +28,12 @@ std::string directoryOf(const std::string& filename)
     return "";
 }
 
+bool fileExists(const std::string& filename)
+{
+    struct stat stats;
+    return stat(filename.c_str(), &stats) == 0;
+}
+
 File::File(const std::string& name, const std::string& path,
            const std::string& content)
     : name{name}, path{path}, m_content{content}, m_storesContent{true}
@@ -41,12 +47,6 @@ File::File(const std::string& name, const std::string& path)
 
 File::File(const std::string& path) : File{rsplit(path, "/").second, path}
 {
-}
-
-bool fileExists(const std::string& filename)
-{
-    struct stat stats;
-    return stat(filename.c_str(), &stats) == 0;
 }
 
 std::string File::content() const

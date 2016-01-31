@@ -5,7 +5,9 @@
 
 using namespace gl;
 
-Texture::Texture(const util::File& file) : m_file{file}, m_texture{0}
+namespace util
+{
+Texture::Texture(const File& file) : m_file{file}, m_texture{0}
 {
     glGenTextures(1, &m_texture);
     bind();
@@ -22,7 +24,6 @@ Texture::Texture(const util::File& file) : m_file{file}, m_texture{0}
 Texture::~Texture()
 {
 }
-
 Texture::Texture(Texture&& old) : m_file{old.m_file}, m_texture{old.m_texture}
 {
     old.m_texture = 0;
@@ -30,7 +31,7 @@ Texture::Texture(Texture&& old) : m_file{old.m_file}, m_texture{old.m_texture}
 
 void Texture::load()
 {
-    const auto glImage = util::loadImage(m_file.path);
+    const auto glImage = loadImage(m_file.path);
     bind();
     glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(GL_RGBA8),
                  glImage.width(), glImage.height(), 0, GL_RGBA,
@@ -40,4 +41,5 @@ void Texture::load()
 void Texture::bind() const
 {
     glBindTexture(GL_TEXTURE_2D, m_texture);
+}
 }

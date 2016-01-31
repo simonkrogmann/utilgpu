@@ -6,17 +6,16 @@
 
 using namespace gl;
 
-class Shader;
 namespace util
 {
 template <typename T>
 class Group;
-}
+class Shader;
 
 class Program
 {
 public:
-    Program(const util::Group<Shader>& shaders);
+    Program(const Group<Shader>& shaders);
     Program(Program&& old);
     Program(const Program&) = delete;
     ~Program();
@@ -29,7 +28,8 @@ public:
     void use() const;
 
 private:
-    GLuint linkShaders(const util::Group<Shader>& shaders);
+    GLuint linkShaders(const Group<Shader>& shaders);
 
     GLuint m_program;
 };
+}

@@ -6,6 +6,8 @@
 
 using namespace gl;
 
+namespace util
+{
 ScreenAlignedQuad::ScreenAlignedQuad()
 {
     glGenVertexArrays(1, &m_vao);
@@ -40,4 +42,5 @@ void ScreenAlignedQuad::draw()
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindVertexArray(0);
+}
 }

@@ -7,10 +7,12 @@
 
 using namespace gl;
 
+namespace util
+{
 class Texture
 {
 public:
-    Texture(const util::File& file);
+    Texture(const File& file);
     Texture(Texture&& old);
     Texture(const Texture&) = delete;
     ~Texture();
@@ -20,6 +22,7 @@ public:
     GLuint get() const { return m_texture; }
     std::string name() const { return m_file.name; }
 private:
-    util::File m_file;
+    File m_file;
     GLuint m_texture;
 };
+}

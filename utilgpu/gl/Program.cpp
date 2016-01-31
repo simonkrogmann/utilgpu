@@ -11,7 +11,9 @@
 
 using namespace gl;
 
-Program::Program(const util::Group<Shader>& shaders) : m_program{0}
+namespace util
+{
+Program::Program(const Group<Shader>& shaders) : m_program{0}
 {
     m_program = linkShaders(shaders);
 
@@ -31,7 +33,7 @@ Program::~Program()
     glDeleteProgram(m_program);
 }
 
-GLuint Program::linkShaders(const util::Group<Shader>& shaders)
+GLuint Program::linkShaders(const Group<Shader>& shaders)
 {
     GLuint linkProgram = glCreateProgram();
 
@@ -81,4 +83,5 @@ GLint Program::getUniformLocation(const std::string& uniformName) const
 GLint Program::operator[](const std::string& uniformName) const
 {
     return getUniformLocation(uniformName);
+}
 }
