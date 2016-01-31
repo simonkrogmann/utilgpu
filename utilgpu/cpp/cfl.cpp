@@ -146,11 +146,25 @@ std::vector<std::string> CFLNode::values() const
     return m_values;
 }
 
-std::string CFLNode::value() const
+std::string CFLNode::value(const std::string& defaultValue) const
 {
     assert(valid());
     assert(m_values.size() > 0);
+    if (m_values[0] == "")
+    {
+        return defaultValue;
+    }
     return m_values[0];
+}
+float CFLNode::value(const float& defaultValue) const
+{
+    const auto stringValue = value();
+    return (stringValue == "") ? defaultValue : std::stof(stringValue);
+}
+int CFLNode::value(const int& defaultValue) const
+{
+    const auto stringValue = value();
+    return (stringValue == "") ? defaultValue : std::stoi(stringValue);
 }
 
 CFLNode* CFLNode::operator[](const std::string& key)

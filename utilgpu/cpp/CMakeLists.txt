@@ -13,6 +13,7 @@ set(includes
     str.h
     numeric.h
     cfl.h
+    cfl.hpp
     Group.h
     StateKeeper.h
     resource.h

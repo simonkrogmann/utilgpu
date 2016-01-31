@@ -23,7 +23,12 @@ public:
     const std::vector<std::unique_ptr<CFLNode>>& children() const;
     std::string name() const;
     std::vector<std::string> values() const;
-    std::string value() const;
+    std::string value(const std::string& defaultValue = "") const;
+    float value(const float& defaultValue) const;
+    int value(const int& defaultValue) const;
+    template <size_t size>
+    std::array<float, size> valueVector(
+        const std::array<float, size>& defaultValue) const;
     bool valid() const;
     std::string message() const;
 
@@ -39,3 +44,5 @@ private:
 
 std::unique_ptr<CFLNode> parseCFL(std::string filename);
 }
+
+#include <utilgpu/cpp/cfl.hpp>

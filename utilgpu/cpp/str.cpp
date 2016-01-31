@@ -1,4 +1,4 @@
-#include "string.h"
+#include "str.h"
 
 #include <string>
 #include <sstream>
@@ -36,6 +36,23 @@ std::pair<std::string, std::string> rsplit(const std::string& string,
         return {"", string};
     }
     return {string.substr(0, position), string.substr(position + at.length())};
+}
+
+std::vector<std::string> splitAll(const std::string& string,
+                                  const std::string& at)
+{
+    std::vector<std::string> results;
+    size_t lastPosition = 0;
+    auto position = string.find(at);
+    while (position != std::string::npos)
+    {
+        results.push_back(string.substr(lastPosition, position - lastPosition));
+        position += at.size();
+        lastPosition = position;
+        position = string.find(at, position);
+    }
+    results.push_back(string.substr(lastPosition));
+    return results;
 }
 
 bool contains(const std::string& string, const std::string& substring)
