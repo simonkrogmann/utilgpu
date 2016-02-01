@@ -33,3 +33,4 @@ before_script:
 script:
   - cmake .. -DCLANG_FORMAT=OFF -DBUILD_GL=ON -DBUILD_QT=ON -DBUILD_WINDOW=ON
   - make && sudo make install && make test
+  - glslangValidator ../source/shader/*

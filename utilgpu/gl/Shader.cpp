@@ -74,7 +74,7 @@ Shader::Shader(const std::string& name, const std::string& source,
 {
     auto shaderSource = source;
     const static auto version = glslVersion();
-    replace(shaderSource, "#version 140", "#version " + version);
+    replace(shaderSource, "#version 330", "#version " + version);
 
     if (contains(shaderSource, "//id"))
     {
