@@ -1,4 +1,3 @@
-option(CLANG_FORMAT "Add clang formatting to the build step" ON)
 option(BUILD_QT     "Build qt sublibrary (requires Qt)" OFF)
 option(BUILD_GL     "Build gl sublibrary (requires qt sublibrary and glbinding)" OFF)
 option(BUILD_WINDOW "Build window sublibrary (requires GLFW)" OFF)

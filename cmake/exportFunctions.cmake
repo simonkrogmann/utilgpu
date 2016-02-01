@@ -1,3 +1,5 @@
+option(CLANG_FORMAT "Add clang formatting to the build step" ON)
+
 function(add_format_target target files)
     if (CLANG_FORMAT)
         add_custom_target(${target}-format
