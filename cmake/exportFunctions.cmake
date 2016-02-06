@@ -45,7 +45,7 @@ function(generate_resource_header project target resources)
     add_dependencies(${target} ${target}-generate)
 endfunction()
 
-if (use_utilggpu_compilation_options)
+if (use_utilgpu_compilation_options)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra -Wpedantic -Wfloat-equal -Wold-style-cast")
     if (CMAKE_BUILD_TYPE STREQUAL Debug)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")

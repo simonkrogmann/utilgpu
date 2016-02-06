@@ -3,7 +3,7 @@ set(project utilgpu)
 project(${project})
 set("${project}_VERSION" 0.1)
 
-set(use_utilggpu_compilation_options ON)
+set(use_utilgpu_compilation_options ON)
 include("cmake/exportFunctions.cmake")
 
 add_subdirectory(utilgpu)
