@@ -26,7 +26,7 @@ public:
     virtual void reload() = 0;
     void render(const util::viewport::Viewport& viewport);
 
-    void renderOffscreen(const Framebuffer& fbo,
+    void renderOffscreen(const Framebuffer* fbo,
                          const util::viewport::Viewport& resolution);
     void renderToFile(const util::viewport::Viewport& resolution);
     void toggleFrameTimeDisplay();
@@ -37,7 +37,7 @@ protected:
     virtual void draw(const util::viewport::Viewport& viewport) = 0;
 
 private:
-    Framebuffer m_fileFBO;
+    std::unique_ptr<Framebuffer> m_fileFBO;
     util::FileWatcher m_fileWatcher;
 
     bool m_measureFrameTime = false;

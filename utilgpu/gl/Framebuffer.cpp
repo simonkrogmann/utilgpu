@@ -3,68 +3,46 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <memory>
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/StateKeeper.h>
 #include <utilgpu/gl/base.h>
+#include <utilgpu/gl/Texture.h>
 #include <utilgpu/qt/texture.h>
 
 using namespace gl;
 
 namespace util
 {
-Framebuffer* Framebuffer::None()
+std::unique_ptr<Framebuffer> Framebuffer::None()
 {
-    return new Framebuffer();
+    return std::make_unique<Framebuffer>();
+}
+
+std::unique_ptr<Framebuffer> Framebuffer::Simple(const unsigned int& width,
+                                                 const unsigned int& height)
+{
+    auto color = std::make_unique<Texture>();
+    auto depth = std::make_unique<Texture>();
+    depth->format(GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32, GL_FLOAT);
+    auto fbo = std::make_unique<Framebuffer>(width, height);
+    fbo->attach(color, GL_COLOR_ATTACHMENT0);
+    fbo->attach(depth, GL_DEPTH_ATTACHMENT);
+    return fbo;
 }
 
 Framebuffer::Framebuffer()
-    : m_framebuffer{0}
-    , m_color{0}
-    , m_depth{0}
-    , m_width{0}
-    , m_height{0}
-    , m_useNone{true}
+    : m_framebuffer{0}, m_width{0}, m_height{0}, m_useNone{true}
 {
 }
 
 Framebuffer::Framebuffer(const unsigned int& width, const unsigned int& height)
-    : m_framebuffer{0}
-    , m_color{0}
-    , m_depth{0}
-    , m_width{0}
-    , m_height{0}
-    , m_useNone{false}
+    : m_framebuffer{0}, m_width{width}, m_height{height}, m_useNone{false}
 {
     glGenFramebuffers(1, &m_framebuffer);
-    glGenTextures(1, &m_color);
-
-    glBindTexture(GL_TEXTURE_2D, m_color);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
-                    static_cast<GLint>(GL_CLAMP_TO_EDGE));
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,
-                    static_cast<GLint>(GL_CLAMP_TO_EDGE));
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                    static_cast<GLint>(GL_NEAREST));
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-                    static_cast<GLint>(GL_NEAREST));
-
-    glGenRenderbuffers(1, &m_depth);
 
     resize(width, height);
-
-    const auto keeper = use();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
-                           m_color, 0);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
-                              GL_RENDERBUFFER, m_depth);
-
-    auto framebufferStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-    if (framebufferStatus != GL_FRAMEBUFFER_COMPLETE)
-    {
-        std::cout << "Framebuffer is incomplete: " << framebufferStatus
-                  << std::endl;
-    }
 }
 
 Framebuffer::~Framebuffer()
@@ -72,19 +50,40 @@ Framebuffer::~Framebuffer()
     if (!m_useNone)
     {
         glDeleteFramebuffers(1, &m_framebuffer);
-        glDeleteRenderbuffers(1, &m_color);
-        glDeleteRenderbuffers(1, &m_depth);
     }
 }
 
 Framebuffer::Framebuffer(Framebuffer&& old)
     : m_framebuffer{old.m_framebuffer}
-    , m_color{old.m_color}
-    , m_depth{old.m_depth}
+    , m_width{old.m_width}
+    , m_height{old.m_height}
 {
     old.m_framebuffer = 0;
-    old.m_color = 0;
-    old.m_depth = 0;
+    for (auto& texture : old.m_textures)
+    {
+        m_textures.emplace(texture.first, std::move(texture.second));
+    }
+}
+
+void Framebuffer::attach(std::unique_ptr<Texture>& texture,
+                         const GLenum& target)
+{
+    const auto keeper = use();
+    glFramebufferTexture2D(GL_FRAMEBUFFER, target, GL_TEXTURE_2D,
+                           texture->get(), 0);
+    texture->size(m_width, m_height);
+    m_textures.emplace(target, std::move(texture));
+}
+
+void Framebuffer::check()
+{
+    const auto keeper = use();
+    auto framebufferStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if (framebufferStatus != GL_FRAMEBUFFER_COMPLETE)
+    {
+        std::cout << "Framebuffer is incomplete: " << framebufferStatus
+                  << std::endl;
+    }
 }
 
 StateKeeper Framebuffer::use(const GLenum& mode) const
@@ -126,18 +125,34 @@ void Framebuffer::resize(const unsigned int& width, const unsigned int& height)
     m_width = width;
     m_height = height;
 
-    glBindTexture(GL_TEXTURE_2D, m_color);
-    glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(GL_RGBA8), width, height,
-                 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glBindRenderbuffer(GL_RENDERBUFFER, m_depth);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    for (auto& texture : m_textures)
+    {
+        texture.second->size(m_width, m_height);
+    }
 }
 
 void Framebuffer::resize(const viewport::Viewport& viewport)
 {
     resize(viewport.width, viewport.height);
+}
+
+GLuint Framebuffer::get() const
+{
+    return m_framebuffer;
+}
+
+Texture* Framebuffer::getColor() const
+{
+    return getTexture(GL_COLOR_ATTACHMENT0);
+}
+
+Texture* Framebuffer::getDepth() const
+{
+    return getTexture(GL_DEPTH_ATTACHMENT);
+}
+
+Texture* Framebuffer::getTexture(const GLenum& target) const
+{
+    return (*m_textures.find(target)).second.get();
 }
 }

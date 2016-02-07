@@ -12,17 +12,23 @@ namespace util
 class Texture
 {
 public:
-    Texture(const File& file);
+    Texture();
     Texture(Texture&& old);
     Texture(const Texture&) = delete;
     ~Texture();
 
     void bind() const;
-    void load();
-    GLuint get() const { return m_texture; }
-    std::string name() const { return m_file.name; }
+    void load(const File& file);
+    void size(const size_t& x, const size_t& y);
+    void parameter(GLenum type, GLenum parameter);
+    void format(const GLenum& format, const GLenum& internalFormat,
+                const GLenum& type);
+    GLuint get() const;
+
 private:
-    File m_file;
     GLuint m_texture;
+    GLenum m_format = GL_RGBA;
+    GLenum m_internalFormat = GL_RGBA8;
+    GLenum m_type = GL_UNSIGNED_BYTE;
 };
 }
