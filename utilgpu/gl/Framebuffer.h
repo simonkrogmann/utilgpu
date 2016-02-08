@@ -18,10 +18,10 @@ class Framebuffer
 {
 public:
     static std::unique_ptr<Framebuffer> None();
-    static std::unique_ptr<Framebuffer> Simple(const unsigned int& width,
-                                               const unsigned int& height);
+    static std::unique_ptr<Framebuffer> Simple(const size_t& width,
+                                               const size_t& height);
     Framebuffer();
-    Framebuffer(const unsigned int& m_width, const unsigned int& height);
+    Framebuffer(const size_t& m_width, const size_t& height);
     Framebuffer(Framebuffer&& old);
     Framebuffer(const Framebuffer&) = delete;
     ~Framebuffer();
@@ -29,7 +29,7 @@ public:
     void attach(std::unique_ptr<Texture>& texture, const GLenum& target);
     void check();
     StateKeeper use(const GLenum& mode = GL_FRAMEBUFFER) const;
-    void resize(const unsigned int& m_width, const unsigned int& height);
+    void resize(const size_t& m_width, const size_t& height);
     void resize(const viewport::Viewport& viewport);
     void save(const std::string& filename);
 
@@ -40,8 +40,8 @@ public:
 
 private:
     GLuint m_framebuffer;
-    unsigned int m_width;
-    unsigned int m_height;
+    size_t m_width;
+    size_t m_height;
     bool m_useNone;
     std::map<GLenum, std::unique_ptr<Texture>> m_textures;
 };

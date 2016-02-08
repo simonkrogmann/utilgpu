@@ -20,8 +20,8 @@ std::unique_ptr<Framebuffer> Framebuffer::None()
     return std::make_unique<Framebuffer>();
 }
 
-std::unique_ptr<Framebuffer> Framebuffer::Simple(const unsigned int& width,
-                                                 const unsigned int& height)
+std::unique_ptr<Framebuffer> Framebuffer::Simple(const size_t& width,
+                                                 const size_t& height)
 {
     auto color = std::make_unique<Texture>();
     auto depth = std::make_unique<Texture>();
@@ -37,7 +37,7 @@ Framebuffer::Framebuffer()
 {
 }
 
-Framebuffer::Framebuffer(const unsigned int& width, const unsigned int& height)
+Framebuffer::Framebuffer(const size_t& width, const size_t& height)
     : m_framebuffer{0}, m_width{width}, m_height{height}, m_useNone{false}
 {
     glGenFramebuffers(1, &m_framebuffer);
@@ -112,7 +112,7 @@ void Framebuffer::save(const std::string& filename)
     saveImage(imageData, m_width, m_height, filename);
 }
 
-void Framebuffer::resize(const unsigned int& width, const unsigned int& height)
+void Framebuffer::resize(const size_t& width, const size_t& height)
 {
     if (m_useNone)
     {

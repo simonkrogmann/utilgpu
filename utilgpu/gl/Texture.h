@@ -19,16 +19,19 @@ public:
 
     void bind() const;
     void load(const File& file);
-    void size(const size_t& x, const size_t& y);
+    void size(const size_t& width, const size_t& height);
     void parameter(GLenum type, GLenum parameter);
     void format(const GLenum& format, const GLenum& internalFormat,
                 const GLenum& type);
     GLuint get() const;
+    void save(const std::string& filename);
 
 private:
     GLuint m_texture;
     GLenum m_format = GL_RGBA;
     GLenum m_internalFormat = GL_RGBA8;
     GLenum m_type = GL_UNSIGNED_BYTE;
+    size_t m_width;
+    size_t m_height;
 };
 }

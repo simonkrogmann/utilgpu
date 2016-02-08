@@ -1,6 +1,7 @@
 #include "texture.h"
 
 #include <cassert>
+#include <map>
 
 #include <QImage>
 #include <QGLWidget>
@@ -14,9 +15,15 @@ QImage loadImage(const std::string& filename)
 }
 
 void saveImage(const std::vector<unsigned char>& data, const int& width,
-               const int& height, const std::string& filename)
+               const int& height, const std::string& filename,
+               const int channels)
 {
-    const QImage image{data.data(), width, height, QImage::Format_ARGB32};
+    std::map<int, QImage::Format> formats{
+        {1, QImage::Format_Grayscale8},
+        {4, QImage::Format_ARGB32},
+        {3, QImage::Format_RGB888},
+    };
+    const QImage image{data.data(), width, height, formats.at(channels)};
     const auto flippedImage = image.mirrored();
     const auto status = flippedImage.save(QString::fromStdString(filename));
     assert(status);
