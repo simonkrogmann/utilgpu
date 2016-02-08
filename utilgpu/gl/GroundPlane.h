@@ -1,7 +1,8 @@
 #pragma once
 
-#include <utilgpu/gl/Drawable.h>
 #include <memory>
+
+#include <utilgpu/gl/Drawable.h>
 
 namespace util
 {

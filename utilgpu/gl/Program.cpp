@@ -1,9 +1,7 @@
 #include "Program.h"
 
-#include <fstream>
-#include <sstream>
 #include <iostream>
-#include <cstring>
+#include <memory>
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/Group.h>
@@ -64,10 +62,9 @@ void Program::printLinkingError() const
     std::cout << "Linking failed:" << std::endl;
     GLint length;
     glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &length);
-    char* infoLog = new char[length + 1];
-    glGetProgramInfoLog(m_program, length, NULL, infoLog);
-    std::cout << infoLog << std::endl;
-    delete[] infoLog;
+    std::unique_ptr<char> infoLog{new char[length + 1]};
+    glGetProgramInfoLog(m_program, length, NULL, infoLog.get());
+    std::cout << infoLog.get() << std::endl;
 }
 
 void Program::use() const

@@ -8,6 +8,7 @@
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/StateKeeper.h>
 #include <utilgpu/gl/base.h>
+#include <utilgpu/gl/viewport.h>
 #include <utilgpu/gl/Texture.h>
 #include <utilgpu/qt/texture.h>
 

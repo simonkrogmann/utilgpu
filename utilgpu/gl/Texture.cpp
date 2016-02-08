@@ -1,6 +1,7 @@
 #include "Texture.h"
 
 #include <glbinding/gl/gl.h>
+#include <utilgpu/cpp/file.h>
 #include <utilgpu/qt/texture.h>
 
 using namespace gl;

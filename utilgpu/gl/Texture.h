@@ -3,12 +3,13 @@
 #include <string>
 
 #include <glbinding/gl/gl.h>
-#include <utilgpu/cpp/file.h>
 
 using namespace gl;
 
 namespace util
 {
+class File;
+
 class Texture
 {
 public:
@@ -31,7 +32,7 @@ private:
     GLenum m_format = GL_RGBA;
     GLenum m_internalFormat = GL_RGBA8;
     GLenum m_type = GL_UNSIGNED_BYTE;
-    size_t m_width;
-    size_t m_height;
+    size_t m_width = 0;
+    size_t m_height = 0;
 };
 }

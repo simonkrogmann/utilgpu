@@ -4,7 +4,6 @@
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/FileWatcher.h>
-#include <utilgpu/gl/Framebuffer.h>
 #include <utilgpu/gl/FrameTimeDisplay.h>
 
 using namespace gl;
@@ -15,6 +14,7 @@ namespace viewport
 {
 struct Viewport;
 }
+class Framebuffer;
 
 class Renderer
 {

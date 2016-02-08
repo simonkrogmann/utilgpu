@@ -1,6 +1,7 @@
 #include "Shader.h"
 
 #include <iostream>
+#include <memory>
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/gl/base.h>
@@ -172,9 +173,8 @@ void Shader::printCompilationError() const
     std::cout << "Compilation failed for " << m_name << ":" << std::endl;
     GLint length;
     glGetShaderiv(m_shader, GL_INFO_LOG_LENGTH, &length);
-    char* infoLog = new char[length + 1];
-    glGetShaderInfoLog(m_shader, length, NULL, infoLog);
-    std::cout << infoLog << std::endl;
-    delete[] infoLog;
+    std::unique_ptr<char> infoLog{new char[length + 1]};
+    glGetShaderInfoLog(m_shader, length, NULL, infoLog.get());
+    std::cout << infoLog.get() << std::endl;
 }
 }

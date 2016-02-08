@@ -6,13 +6,16 @@
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/StateKeeper.h>
-#include <utilgpu/gl/viewport.h>
 
 using namespace gl;
 
 namespace util
 {
 class Texture;
+namespace viewport
+{
+struct Viewport;
+}
 
 class Framebuffer
 {

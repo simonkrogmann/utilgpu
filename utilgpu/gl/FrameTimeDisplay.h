@@ -3,12 +3,16 @@
 #include <chrono>
 #include <memory>
 
-#include <utilgpu/gl/Program.h>
 #include <utilgpu/gl/ScreenAlignedQuad.h>
-#include <utilgpu/gl/viewport.h>
 
 namespace util
 {
+class Program;
+namespace viewport
+{
+struct Viewport;
+}
+
 class FrameTimeDisplay
 {
 public:

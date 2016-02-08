@@ -4,14 +4,17 @@
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/gl/viewport.h>
+#include <utilgpu/gl/Framebuffer.h>
 
 using namespace gl;
 
 namespace util
 {
-Renderer::Renderer() : m_fileWatcher{}, m_frameTimeDisplay{}
+Renderer::Renderer()
+    : m_fileFBO{Framebuffer::Simple(1920, 1080)}
+    , m_fileWatcher{}
+    , m_frameTimeDisplay{}
 {
-    m_fileFBO = Framebuffer::Simple(1920, 1080);
     m_frameTimeDisplay.init();
 }
 

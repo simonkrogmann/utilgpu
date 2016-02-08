@@ -5,12 +5,13 @@
 #include <map>
 
 #include <glbinding/gl/gl.h>
-#include <utilgpu/cpp/file.h>
 
 using namespace gl;
 
 namespace util
 {
+class File;
+
 class Shader
 {
 public:
