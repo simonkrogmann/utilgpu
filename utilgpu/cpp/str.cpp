@@ -15,6 +15,16 @@ void replace(std::string& target, const std::string& old,
     target.replace(position, old.length(), with);
 }
 
+void replaceAll(std::string& target, const std::string& old,
+                const std::string& with)
+{
+    size_t position;
+    while ((position = target.find(old)) != std::string::npos)
+    {
+        target.replace(position, old.length(), with);
+    }
+}
+
 // splits string at first occurrence
 std::pair<std::string, std::string> split(const std::string& string,
                                           const std::string& at)

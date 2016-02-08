@@ -5,6 +5,7 @@
 #include <functional>
 
 #include <utilgpu/cpp/file.h>
+#include <utilgpu/cpp/str.h>
 
 int main(int argc, char* argv[])
 {
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
         resources.push_back(resource);
     }
 
-    std::string projectName{argv[1]};
+    const std::string projectName{argv[1]};
     util::File output{argv[2]};
     if (output.exists() && output.timeStamp() > mostRecentlyEdited)
     {
@@ -37,26 +38,42 @@ int main(int argc, char* argv[])
         return 0;
     }
 
+    std::string fileTemplate = R"(
+#pragma once
+#include <map>
+#include <iostream>
+const long long {{ProjectName}} = {{ProjectNameHash}};
+template<> inline util::File loadResource<{{ProjectName}}>(const std::string& name)
+{
+    const std::map<std::string, std::string> resources {
+        {{Resources}}
+    };
+    if (resources.find(name) == resources.end())
+    {
+        std::cout << "Resource not found: " << name << std::endl;
+    }
+    return {name, name, resources.at(name)};
+}
+)";
+
     std::ofstream file{argv[2]};
-    file << "#pragma once\n#include <map>\n";
-    file << "const long long " << projectName << " = "
-         << std::hash<std::string>()(projectName) << ";";
-    file << "template<> inline util::File loadResource<" << projectName
-         << ">(const std::string& "
-            "name) {";
-    file << "std::map<std::string, std::string> resources {";
+    auto hash = std::to_string(std::hash<std::string>()(projectName));
+    util::replaceAll(fileTemplate, "{{ProjectName}}", projectName);
+    util::replaceAll(fileTemplate, "{{ProjectNameHash}}", hash);
     bool firstRun = true;
+    std::string resourceString = "";
     for (const auto& resource : resources)
     {
         if (!firstRun)
         {
-            file << ",";
+            resourceString += ",";
         }
         firstRun = false;
-        file << "{\"" << resource.path << "\", R\"(" << resource.content()
-             << ")\"}";
+        resourceString +=
+            "{\"" + resource.path + "\", R\"(" + resource.content() + ")\"}";
     }
-    file << "}; return {name, name, resources.at(name)}; }";
+    util::replaceAll(fileTemplate, "{{Resources}}", resourceString);
+    file << fileTemplate;
 
     return 0;
 }

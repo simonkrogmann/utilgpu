@@ -8,6 +8,8 @@ namespace util
 // replaces first occurrence of old in target
 void replace(std::string& target, const std::string& old,
              const std::string& with);
+void replaceAll(std::string& target, const std::string& old,
+                const std::string& with);
 
 // splits string at first occurrence
 std::pair<std::string, std::string> split(const std::string& string,

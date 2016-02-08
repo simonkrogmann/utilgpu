@@ -35,6 +35,7 @@ endfunction()
 function(generate_resource_header project target resources)
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/resources/${target})
     set(headername ${CMAKE_BINARY_DIR}/resources/${target}/compile_time_resources.h)
+    set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${headername})
     add_custom_target(
         ${target}-generate
         COMMAND utilgpu-resource-loader ${project} ${headername} ${resources}
