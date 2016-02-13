@@ -78,7 +78,7 @@ void Texture::format(const GLenum& format, const GLenum& internalFormat,
 
 void Texture::save(const std::string& filename)
 {
-    std::map<GLenum, int> channels{
+    const std::map<GLenum, int> channels{
         {GL_DEPTH_COMPONENT, 1}, {GL_RGBA, 4}, {GL_RGB, 3}, {GL_RED, 1}};
     bind();
     std::vector<unsigned char> imageData(m_width * m_height * 4);

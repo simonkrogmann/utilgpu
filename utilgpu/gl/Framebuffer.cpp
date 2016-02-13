@@ -42,8 +42,6 @@ Framebuffer::Framebuffer(const size_t& width, const size_t& height)
     : m_framebuffer{0}, m_width{width}, m_height{height}, m_useNone{false}
 {
     glGenFramebuffers(1, &m_framebuffer);
-
-    resize(width, height);
 }
 
 Framebuffer::~Framebuffer()
