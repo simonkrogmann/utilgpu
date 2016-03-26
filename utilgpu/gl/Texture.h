@@ -26,6 +26,7 @@ public:
                 const GLenum& type);
     GLuint get() const;
     void save(const std::string& filename);
+    void generateMipMap();
 
 private:
     GLuint m_texture;

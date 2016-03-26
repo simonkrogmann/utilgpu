@@ -85,4 +85,11 @@ void Texture::save(const std::string& filename)
     glGetTexImage(GL_TEXTURE_2D, 0, m_format, GL_UNSIGNED_BYTE, &imageData[0]);
     saveImage(imageData, m_width, m_height, filename, channels.at(m_format));
 }
+
+void Texture::generateMipMap()
+{
+    bind();
+    parameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
+}
 }
