@@ -8,7 +8,7 @@ std::string loadFile(const std::string& filename);
 bool fileExists(const std::string& filename);
 std::string directoryOf(const std::string& filename);
 
-struct File
+class File
 {
 public:
     File(const std::string& name, const std::string& path,

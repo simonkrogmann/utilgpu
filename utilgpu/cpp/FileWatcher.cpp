@@ -4,6 +4,8 @@
 #include <cassert>
 #include <sys/stat.h>
 
+#include <utilgpu/cpp/file.h>
+
 namespace util
 {
 FileWatcher::FileWatcher() : m_files{}

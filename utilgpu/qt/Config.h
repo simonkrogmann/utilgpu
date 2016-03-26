@@ -1,9 +1,10 @@
 #pragma once
 
-#include <QSettings>
 #include <map>
 #include <string>
 #include <vector>
+
+#include <QSettings>
 
 namespace util
 {

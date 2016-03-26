@@ -87,6 +87,7 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
     }
     return root;
 }
+
 CFLNode::CFLNode(const std::string& name, CFLNode* parent, const int& level)
     : m_name{name}, m_parent{parent}, m_level{level}
 {

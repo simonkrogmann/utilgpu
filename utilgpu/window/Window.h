@@ -4,12 +4,13 @@
 #include <memory>
 
 #include <utilgpu/gl/viewport.h>
-#include <utilgpu/gl/Renderer.h>
 
 struct GLFWwindow;
 
 namespace util
 {
+class Renderer;
+
 class Window
 {
 public:
@@ -19,8 +20,8 @@ public:
     void requestGLVersion(const int& major, const int& minor);
     int init(const std::string& title, const bool& fullscreen);
     void initAfterGL();
-    void setRenderer(std::unique_ptr<util::Renderer> renderer);
-    util::Renderer* renderer();
+    void setRenderer(std::unique_ptr<Renderer> renderer);
+    Renderer* renderer();
     void keyPress(int key, int action, int mods);
     void resize(const unsigned int& width, const unsigned int& height);
     void setFileResolution(const unsigned int& width,
@@ -29,8 +30,8 @@ public:
 
 private:
     GLFWwindow* m_window;
-    std::unique_ptr<util::Renderer> m_renderer;
-    util::viewport::Viewport m_viewport;
-    util::viewport::Viewport m_fileResolution;
+    std::unique_ptr<Renderer> m_renderer;
+    viewport::Viewport m_viewport;
+    viewport::Viewport m_fileResolution;
 };
 }

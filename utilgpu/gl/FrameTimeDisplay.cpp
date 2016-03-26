@@ -48,7 +48,7 @@ void FrameTimeDisplay::render(const viewport::Viewport&)
         std::chrono::steady_clock::now() - m_start;
     if (diff.count() > 1.0)
     {
-        m_value = 1000.0 / m_frames;
+        m_value = 1000.0 / std::max(m_frames, 1u);
         reset();
     }
     ++m_frames;

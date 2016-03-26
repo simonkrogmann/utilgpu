@@ -4,10 +4,10 @@
 #include <map>
 #include <functional>
 
-#include <utilgpu/cpp/file.h>
-
 namespace util
 {
+class File;
+
 class FileWatcher
 {
 public:

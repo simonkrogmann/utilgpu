@@ -20,6 +20,7 @@ Texture::Texture()
 
 Texture::~Texture()
 {
+    glDeleteTextures(1, &m_texture);
 }
 
 Texture::Texture(Texture&& old)
