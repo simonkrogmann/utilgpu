@@ -19,6 +19,7 @@ public:
     std::string value(const std::string& key);
     unsigned int valueUInt(const std::string& key);
     void setValue(const std::string& key, const unsigned int& value);
+    void setValue(const std::string& key, const std::string& value);
     void setDefaults(const std::map<std::string, std::string>& defaults);
     std::vector<std::string> additionalArguments();
 

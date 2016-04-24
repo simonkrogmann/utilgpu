@@ -100,4 +100,11 @@ void Config::setValue(const std::string& key, const unsigned int& value)
     m_settings.setValue(QString::fromStdString(key), value);
     m_settings.sync();
 }
+
+void Config::setValue(const std::string& key, const std::string& value)
+{
+    m_settings.setValue(QString::fromStdString(key),
+                        QString::fromStdString(value));
+    m_settings.sync();
+}
 }
