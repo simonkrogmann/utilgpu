@@ -5,6 +5,7 @@
 #include <glbinding/gl/gl.h>
 #include <utilgpu/gl/viewport.h>
 #include <utilgpu/gl/Framebuffer.h>
+#include <utilgpu/cpp/file.h>
 
 using namespace gl;
 
@@ -40,7 +41,7 @@ void Renderer::toggleFrameTimeDisplay()
     m_measureFrameTime = !m_measureFrameTime;
 }
 
-void Renderer::renderToFile(const util::viewport::Viewport& resolution)
+void Renderer::renderToFile(const viewport::Viewport& resolution)
 {
     m_fileFBO->resize(resolution.width, resolution.height);
     renderOffscreen(m_fileFBO.get(), resolution);
@@ -49,7 +50,7 @@ void Renderer::renderToFile(const util::viewport::Viewport& resolution)
 }
 
 void Renderer::renderOffscreen(const Framebuffer* fbo,
-                               const util::viewport::Viewport& resolution)
+                               const viewport::Viewport& resolution)
 {
     const auto keeper = util::viewport::use(resolution);
     const auto keeper2 = fbo->use(GL_DRAW_FRAMEBUFFER);
@@ -57,8 +58,13 @@ void Renderer::renderOffscreen(const Framebuffer* fbo,
     render(resolution);
 }
 
-void Renderer::addDependentPath(const util::File& path)
+void Renderer::addDependentPath(const File& path)
 {
     m_fileWatcher.addFile(path);
+}
+
+void Renderer::addDependentPath(const std::string& path)
+{
+    m_fileWatcher.addFile(File{path});
 }
 }

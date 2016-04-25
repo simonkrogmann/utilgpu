@@ -57,7 +57,7 @@ void FrameTimeDisplay::render(const viewport::Viewport&)
     auto numDigits = static_cast<unsigned int>(number.size());
     number.resize(10, 0);
 
-    auto keeper = viewport::use(viewport::Viewport{0, 0, 20 * numDigits, 40});
+    auto keeper = viewport::use(viewport::Viewport{20 * numDigits, 40});
     m_program->use();
     glUniform1iv((*m_program)["number"], 10, number.data());
     glUniform1ui((*m_program)["numDigits"], numDigits);

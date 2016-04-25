@@ -10,6 +10,17 @@ namespace viewport
 {
 using namespace gl;
 
+Viewport::Viewport(const unsigned int& width, const unsigned int& height)
+    : Viewport{0, 0, width, height}
+{
+}
+
+Viewport::Viewport(const int& x, const int& y, const unsigned int& width,
+                   const unsigned int& height)
+    : x{x}, y{y}, width{width}, height{height}
+{
+}
+
 Viewport get()
 {
     GLint data[4];

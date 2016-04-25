@@ -3,9 +3,7 @@
 #include <vector>
 
 #include <glbinding/gl/gl.h>
-#include <utilgpu/cpp/Group.h>
 #include <utilgpu/gl/Shader.h>
-#include <utilgpu/gl/Program.h>
 #include <utilgpu/cpp/resource.h>
 
 using namespace gl;
@@ -42,23 +40,13 @@ GroundPlane::~GroundPlane()
     glDeleteVertexArrays(1, &m_vao);
 }
 
-void GroundPlane::setViewProjection(const float* matrix)
+Shader GroundPlane::getVertexShader()
 {
-    m_program->use();
-    glUniformMatrix4fv((*m_program)["viewProjection"], 1, GL_FALSE, matrix);
-}
-
-void GroundPlane::addFragmentShader(Shader& shader)
-{
-    const Group<Shader> shaders(
-        Shader::vertex(loadResource<utilgpu>("shader/groundplane.vert")),
-        std::move(shader));
-    m_program = std::make_unique<Program>(shaders);
+    return Shader::vertex(loadResource<utilgpu>("shader/groundplane.vert"));
 }
 
 void GroundPlane::draw()
 {
-    m_program->use();
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
     glBindVertexArray(0);

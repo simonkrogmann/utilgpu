@@ -1,4 +1,5 @@
 find_package(glbinding REQUIRED)
+find_package(glm REQUIRED)
 
 set(target gl)
 
@@ -14,6 +15,7 @@ set(sources
     FrameTimeDisplay.cpp
     Renderer.cpp
     GroundPlane.cpp
+    ShadowMap.cpp
 )
 
 set(includes
@@ -28,12 +30,17 @@ set(includes
     FrameTimeDisplay.h
     Renderer.h
     GroundPlane.h
+    ShadowMap.h
+    Model.h
 )
 
 set(resources
     shader/screenalignedquad.vert
     shader/onscreendisplay.frag
     shader/groundplane.vert
+    shader/shadowmap.vert
+    shader/shadowmap.frag
+    shader/shadowmap_lookup.frag
 )
 
 set(libraries

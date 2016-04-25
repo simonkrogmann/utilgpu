@@ -34,6 +34,7 @@ public:
 
 protected:
     void addDependentPath(const util::File& path);
+    void addDependentPath(const std::string& path);
     virtual void draw(const util::viewport::Viewport& viewport) = 0;
 
 private:

@@ -25,7 +25,8 @@ void onKeyPress(GLFWwindow* window, int key, int, int action, int mods)
 }
 }
 
-Window::Window() : m_window{nullptr}, m_viewport{0, 0, 640, 480}
+Window::Window()
+    : m_window{nullptr}, m_viewport{640, 480}, m_fileResolution{0, 0}
 {
     setFileResolution(1920, 1080);
     glfwInit();
@@ -86,7 +87,7 @@ void Window::setRenderer(std::unique_ptr<util::Renderer> renderer)
 void Window::setFileResolution(const unsigned int& width,
                                const unsigned int& height)
 {
-    m_fileResolution = {0, 0, width, height};
+    m_fileResolution = {width, height};
 }
 
 util::Renderer* Window::renderer()
