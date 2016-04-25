@@ -40,6 +40,7 @@ set(resources
     shader/groundplane.vert
     shader/shadowmap.vert
     shader/shadowmap.frag
+    shader/shadowmap_lookup.frag
 )
 
 set(libraries

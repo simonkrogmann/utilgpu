@@ -51,4 +51,9 @@ Texture* ShadowMap::get()
 {
     return m_fbo.getDepth();
 }
+
+File ShadowMap::getShaderInclude()
+{
+    return loadResource<utilgpu>("shader/shadowmap_lookup.frag");
+}
 }

@@ -8,7 +8,7 @@ out vec2 position;
 uniform mat4 viewProjection;
 
 void main() {
-    vec2 distant_vertex = vertex * 1.0 / 0.000001;
+    vec2 distant_vertex = vertex * 1000.0;
     gl_Position = viewProjection * vec4(distant_vertex, 0.0, 1.0);
     position = distant_vertex;
 }

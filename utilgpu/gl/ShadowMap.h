@@ -8,8 +8,8 @@
 namespace util
 {
 class Model;
-
 class Program;
+class File;
 
 class ShadowMap
 {
@@ -19,6 +19,7 @@ public:
     void draw(const std::vector<Model>& models,
               const glm::mat4& lightViewProjection);
     Texture* get();
+    File getShaderInclude();
 
 private:
     Framebuffer m_fbo;
