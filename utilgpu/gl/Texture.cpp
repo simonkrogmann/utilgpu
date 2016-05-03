@@ -2,7 +2,7 @@
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/file.h>
-#include <utilgpu/qt/texture.h>
+#include <utilgpu/gl/image.h>
 
 using namespace gl;
 

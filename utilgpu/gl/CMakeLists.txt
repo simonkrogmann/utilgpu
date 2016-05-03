@@ -1,11 +1,13 @@
 find_package(glbinding REQUIRED)
 find_package(glm REQUIRED)
+find_package(Qt5OpenGL REQUIRED)
 
 set(target gl)
 
 set(sources
     base.cpp
     viewport.cpp
+    image.cpp
     Program.cpp
     Shader.cpp
     Texture.cpp
@@ -21,6 +23,7 @@ set(sources
 set(includes
     base.h
     viewport.h
+    image.h
     Program.h
     Shader.h
     Texture.h
@@ -45,8 +48,8 @@ set(resources
 
 set(libraries
     cpp
-    qt
     glbinding::glbinding
+    Qt5::OpenGL
 )
 
 create_library(${project} ${target} "${sources}" "${includes}" "${libraries}")

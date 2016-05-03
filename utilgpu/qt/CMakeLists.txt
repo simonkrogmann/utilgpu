@@ -1,18 +1,16 @@
-find_package(Qt5OpenGL REQUIRED)
+find_package(Qt5Core REQUIRED)
 
 set(sources
-    texture.cpp
     Config.cpp
 )
 
 set(includes
-    texture.h
     Config.h
 )
 
 set(libraries
     cpp
-    Qt5::OpenGL
+    Qt5::Core
 )
 
 create_library(${project} qt "${sources}" "${includes}" "${libraries}")

@@ -1,4 +1,4 @@
-#include "texture.h"
+#include "image.h"
 
 #include <cassert>
 #include <map>
