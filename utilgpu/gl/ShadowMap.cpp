@@ -19,6 +19,8 @@ ShadowMap::ShadowMap(const size_t& width, const size_t& height)
 {
     auto depth = std::make_unique<Texture>();
     depth->format(GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32, GL_FLOAT);
+    float color[] = {1.0f, 1.0f, 1.0f, 1.0f};
+    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
     depth->parameter(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     depth->parameter(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
     m_fbo.attach(depth, GL_DEPTH_ATTACHMENT);
