@@ -23,43 +23,79 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
     unsigned int lineNumber = 1;
     bool directValue = false;
     unsigned int lastNodeLine = 0;
+    bool stringMode = false;
+    std::string collected = "";
     while (std::getline(sourceFile, line))
     {
+        unsigned int lineBegin = lineNumber;
         auto level = static_cast<int>(leadingSpaces(line));
         line = line.substr(level);
-        const auto commentPosition = line.find("#");
-        if (commentPosition != std::string::npos)
-        {
-            line = line.substr(0, commentPosition);
-        }
-        const auto colonPosition = line.find(":");
-        if (colonPosition != std::string::npos)
-        {
-            auto pair = split(line, ":");
-            const auto name = stripSpaces(pair.first);
-            if (name.size() <= 0)
-            {
-                return ErrorNode(lineNumber, "Node names cannot be empty.");
-            }
-            while (current->m_level >= level)
-            {
-                current = current->parent();
-            }
-            if (current->m_values.size() > 0)
-            {
-                return ErrorNode(lineNumber,
-                                 "Nodes cannot have children and values.");
-            }
-            current = current->addChild(name, level);
-            valueLevel = -1;
-            level += colonPosition;
-            directValue = false;
-            lastNodeLine = lineNumber;
 
-            line = pair.second;
+        bool afterString = false;
+        for (const auto& c : line)
+        {
+            if (afterString)
+            {
+                if (c == '#')
+                    break;
+                if (c != ' ')
+                    return ErrorNode(lineNumber,
+                                     "Only comments can follow strings.");
+            }
+            if (stringMode)
+            {
+                if (c == '"')
+                {
+                    stringMode = false;
+                    afterString = true;
+                }
+                else
+                {
+                    collected += c;
+                }
+                continue;
+            }
+            lineBegin = lineNumber;
+            if (c == ' ')
+                continue;
+            else if (c == '#')
+                break;
+            else if (c == '"')
+            {
+                assert(collected == "");
+                stringMode = true;
+            }
+            else if (c == ':')
+            {
+                const auto name = collected;
+                if (name.size() <= 0)
+                {
+                    return ErrorNode(lineNumber, "Node names cannot be empty.");
+                }
+                while (current->m_level >= level)
+                {
+                    current = current->parent();
+                }
+                if (current->m_values.size() > 0)
+                {
+                    return ErrorNode(lineNumber,
+                                     "Nodes cannot have children and values.");
+                }
+                current = current->addChild(name, level);
+                valueLevel = -1;
+                level += 1;
+                directValue = false;
+                lastNodeLine = lineNumber;
+                collected = "";
+            }
+            else
+            {
+                collected += c;
+            }
         }
-        line = stripSpaces(line);
-        if (line.size() > 0)
+
+        // save value into parent node
+        if (!stringMode && collected.size() > 0)
         {
             if (directValue)
             {
@@ -74,14 +110,15 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
             }
             else if (level <= current->m_level)
             {
-                return ErrorNode(
-                    lineNumber,
-                    "A value must be indented deeper than its node.");
+                return ErrorNode(lineNumber,
+                                 "A value or its continuation must be indented "
+                                 "deeper than its node.");
             }
-            directValue = lastNodeLine == lineNumber;
+            directValue = lastNodeLine == lineBegin;
             valueLevel = level;
             assert(current->m_children.size() == 0);
-            current->m_values.push_back(line);
+            current->m_values.push_back(collected);
+            collected = "";
         }
         ++lineNumber;
     }
