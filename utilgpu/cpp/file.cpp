@@ -19,6 +19,14 @@ std::string loadFile(const std::string& filename)
     return sourceBuffer.str();
 }
 
+void writeFile(const std::string& filename, const std::string& content)
+{
+    std::ofstream targetFile(filename);
+    assert(targetFile.is_open());
+
+    targetFile << content;
+}
+
 std::string directoryOf(const std::string& filename)
 {
     if (contains(filename, "/"))
@@ -57,6 +65,13 @@ std::string File::content() const
     }
     return loadFile(path);
 }
+
+void File::setContent(const std::string& content) const
+{
+    assert(!m_storesContent);
+    return writeFile(path, content);
+}
+
 bool File::exists() const
 {
     if (m_storesContent)
