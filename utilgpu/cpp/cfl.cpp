@@ -31,6 +31,11 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
         auto level = static_cast<int>(leadingSpaces(line));
         line = line.substr(level);
 
+        if (stringMode)
+        {
+            collected += " ";
+        }
+
         bool afterString = false;
         for (const auto& c : line)
         {
@@ -67,6 +72,7 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
             }
             else if (c == ':')
             {
+                // handle node
                 const auto name = collected;
                 if (name.size() <= 0)
                 {
