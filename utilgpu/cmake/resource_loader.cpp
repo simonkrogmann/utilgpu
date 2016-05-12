@@ -43,7 +43,11 @@ int main(int argc, char* argv[])
 #pragma once
 #include <map>
 #include <iostream>
+
 const long long {{ProjectName}} = {{ProjectNameHash}};
+
+namespace util {
+
 template<> inline util::File loadResource<{{ProjectName}}>(const std::string& name)
 {
     const std::map<std::string, std::string> resources {
@@ -54,6 +58,8 @@ template<> inline util::File loadResource<{{ProjectName}}>(const std::string& na
         std::cout << "Resource not found: " << name << std::endl;
     }
     return {name, name, resources.at(name)};
+}
+
 }
 )";
 

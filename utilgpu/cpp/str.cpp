@@ -99,6 +99,22 @@ std::string stripSpaces(const std::string& string)
     return string.substr(begin, end - begin + 1);
 }
 
+bool isWhitespace(const char c)
+{
+    std::string whitespaceCharacters = " \n\r\t";
+    return whitespaceCharacters.find(c) != std::string::npos;
+}
+
+std::string stripWhitespace(const std::string& string)
+{
+    size_t begin = 0, end = string.size() - 1;
+    for (; isWhitespace(string[begin]); ++begin)
+        ;
+    for (; isWhitespace(string[end]); --end)
+        ;
+    return string.substr(begin, end - begin + 1);
+}
+
 size_t leadingSpaces(const std::string& string)
 {
     size_t number = 0;
