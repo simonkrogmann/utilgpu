@@ -1,7 +1,7 @@
 #pragma once
 
-#include <glm/mat4x4.hpp>
 #include <utilgpu/gl/Drawable.h>
+#include <glm/mat4x4.hpp>
 
 namespace util
 {

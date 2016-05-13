@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
 #include <map>
 #include <memory>
+#include <string>
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/StateKeeper.h>

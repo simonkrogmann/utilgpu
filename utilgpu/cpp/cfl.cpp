@@ -1,7 +1,7 @@
 #include "cfl.h"
 
-#include <fstream>
 #include <cassert>
+#include <fstream>
 
 #include <utilgpu/cpp/str.h>
 

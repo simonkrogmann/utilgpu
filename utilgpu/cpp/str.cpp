@@ -1,8 +1,8 @@
 #include "str.h"
 
-#include <string>
-#include <sstream>
 #include <cassert>
+#include <sstream>
+#include <string>
 
 namespace util
 {

@@ -3,9 +3,9 @@
 #include <iostream>
 
 #include <glbinding/gl/gl.h>
-#include <utilgpu/gl/viewport.h>
-#include <utilgpu/gl/Framebuffer.h>
 #include <utilgpu/cpp/file.h>
+#include <utilgpu/gl/Framebuffer.h>
+#include <utilgpu/gl/viewport.h>
 
 using namespace gl;
 

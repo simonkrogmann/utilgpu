@@ -1,12 +1,12 @@
 #include "Config.h"
 
+#include <cassert>
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-#include <cassert>
 
-#include <QSettings>
 #include <utilgpu/cpp/str.h>
+#include <QSettings>
 
 namespace util
 {

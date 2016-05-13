@@ -40,10 +40,7 @@ StateKeeper use(const Viewport& resolution)
 {
     const auto old = get();
     set(resolution);
-    return {[=]()
-            {
-                set(old);
-            }};
+    return {[=]() { set(old); }};
 }
 }
 }

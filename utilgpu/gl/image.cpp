@@ -3,8 +3,8 @@
 #include <cassert>
 #include <map>
 
-#include <QImage>
 #include <QGLWidget>
+#include <QImage>
 
 namespace util
 {

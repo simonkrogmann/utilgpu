@@ -1,12 +1,12 @@
 #include "base.h"
 
-#include <string>
-#include <map>
 #include <iostream>
+#include <map>
+#include <string>
 
 #include <glbinding/Binding.h>
-#include <glbinding/gl/gl.h>
 #include <glbinding/callbacks.h>
+#include <glbinding/gl/gl.h>
 
 namespace util
 {
@@ -18,20 +18,18 @@ void glInitialize()
     glbinding::setCallbackMaskExcept(
         glbinding::CallbackMask::After | glbinding::CallbackMask::Parameters,
         {"glGetError"});
-    glbinding::setAfterCallback(
-        [](const glbinding::FunctionCall& call)
+    glbinding::setAfterCallback([](const glbinding::FunctionCall& call) {
+        const auto error = glGetError();
+        if (error != GL_NO_ERROR)
         {
-            const auto error = glGetError();
-            if (error != GL_NO_ERROR)
+            std::cout << error << " in " << call.function->name()
+                      << " with parameters:" << std::endl;
+            for (const auto& parameter : call.parameters)
             {
-                std::cout << error << " in " << call.function->name()
-                          << " with parameters:" << std::endl;
-                for (const auto& parameter : call.parameters)
-                {
-                    std::cout << "    " << parameter->asString() << std::endl;
-                }
+                std::cout << "    " << parameter->asString() << std::endl;
             }
-        });
+        }
+    });
 }
 
 void glContextInfo()

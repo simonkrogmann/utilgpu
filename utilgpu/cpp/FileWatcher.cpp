@@ -1,8 +1,8 @@
 #include "FileWatcher.h"
 
-#include <string>
-#include <cassert>
 #include <sys/stat.h>
+#include <cassert>
+#include <string>
 
 #include <utilgpu/cpp/file.h>
 

@@ -1,15 +1,15 @@
 #include "Framebuffer.h"
 
-#include <iostream>
-#include <vector>
 #include <cassert>
+#include <iostream>
 #include <memory>
+#include <vector>
 
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/StateKeeper.h>
+#include <utilgpu/gl/Texture.h>
 #include <utilgpu/gl/base.h>
 #include <utilgpu/gl/viewport.h>
-#include <utilgpu/gl/Texture.h>
 #include <utilgpu/qt/texture.h>
 
 using namespace gl;
@@ -89,16 +89,11 @@ StateKeeper Framebuffer::use(const GLenum& mode) const
 {
     if (m_useNone)
     {
-        return {[]()
-                {
-                }};
+        return {[]() {}};
     }
     const auto old = glGetInteger(GL_FRAMEBUFFER_BINDING);
     glBindFramebuffer(mode, m_framebuffer);
-    return {[=]()
-            {
-                glBindFramebuffer(mode, old);
-            }};
+    return {[=]() { glBindFramebuffer(mode, old); }};
 }
 
 void Framebuffer::save(const std::string& filename)

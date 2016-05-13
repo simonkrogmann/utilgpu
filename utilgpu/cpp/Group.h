@@ -13,8 +13,7 @@ class Group
 public:
     Group(T&& element) { v.push_back(std::move(element)); }
     template <typename... T2>
-    Group(T&& element, T2&&... rest)
-        : Group(std::forward<T2>(rest)...)
+    Group(T&& element, T2&&... rest) : Group(std::forward<T2>(rest)...)
     {
         v.push_back(std::move(element));
     }

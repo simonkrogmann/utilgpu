@@ -4,12 +4,12 @@
 #include <memory>
 
 #include <glbinding/gl/gl.h>
+#include <utilgpu/cpp/Group.h>
 #include <utilgpu/cpp/numeric.h>
+#include <utilgpu/cpp/resource.h>
 #include <utilgpu/gl/Program.h>
 #include <utilgpu/gl/Shader.h>
 #include <utilgpu/gl/viewport.h>
-#include <utilgpu/cpp/Group.h>
-#include <utilgpu/cpp/resource.h>
 
 using namespace gl;
 

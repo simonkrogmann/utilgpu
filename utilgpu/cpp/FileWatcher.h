@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
-#include <map>
 #include <functional>
+#include <map>
+#include <string>
 
 namespace util
 {

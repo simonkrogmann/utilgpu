@@ -1,9 +1,9 @@
 #include "file.h"
 
+#include <sys/stat.h>
+#include <cassert>
 #include <fstream>
 #include <sstream>
-#include <cassert>
-#include <sys/stat.h>
 
 #include "str.h"
 

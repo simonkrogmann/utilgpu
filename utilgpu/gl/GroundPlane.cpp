@@ -3,8 +3,8 @@
 #include <vector>
 
 #include <glbinding/gl/gl.h>
-#include <utilgpu/gl/Shader.h>
 #include <utilgpu/cpp/resource.h>
+#include <utilgpu/gl/Shader.h>
 
 using namespace gl;
 

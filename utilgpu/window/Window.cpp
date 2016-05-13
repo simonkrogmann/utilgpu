@@ -1,7 +1,7 @@
 #include "Window.h"
 
-#include <map>
 #include <cassert>
+#include <map>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>

@@ -1,13 +1,13 @@
 #include "ShadowMap.h"
 
 #include <glbinding/gl/gl.h>
-#include <utilgpu/gl/Shader.h>
-#include <utilgpu/gl/Program.h>
-#include <utilgpu/gl/Texture.h>
-#include <utilgpu/gl/viewport.h>
-#include <utilgpu/gl/Model.h>
 #include <utilgpu/cpp/Group.h>
 #include <utilgpu/cpp/resource.h>
+#include <utilgpu/gl/Model.h>
+#include <utilgpu/gl/Program.h>
+#include <utilgpu/gl/Shader.h>
+#include <utilgpu/gl/Texture.h>
+#include <utilgpu/gl/viewport.h>
 #include <glm/gtc/type_ptr.hpp>
 
 using namespace gl;

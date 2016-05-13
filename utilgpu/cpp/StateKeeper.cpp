@@ -11,9 +11,7 @@ StateKeeper::StateKeeper(const std::function<void()>& restoreFunction)
 StateKeeper::StateKeeper(StateKeeper&& old)
     : m_restoreFunction{old.m_restoreFunction}
 {
-    old.m_restoreFunction = []()
-    {
-    };
+    old.m_restoreFunction = []() {};
 }
 StateKeeper::~StateKeeper()
 {

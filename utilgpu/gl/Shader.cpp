@@ -4,9 +4,9 @@
 #include <memory>
 
 #include <glbinding/gl/gl.h>
-#include <utilgpu/gl/base.h>
 #include <utilgpu/cpp/file.h>
 #include <utilgpu/cpp/str.h>
+#include <utilgpu/gl/base.h>
 
 using namespace gl;
 namespace util
