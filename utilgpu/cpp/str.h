@@ -20,6 +20,7 @@ std::vector<std::string> splitAll(const std::string& string,
                                   const std::string& at);
 
 bool contains(const std::string& string, const std::string& substring);
+bool startsWith(const std::string& string, const std::string& start);
 bool endsWith(const std::string& string, const std::string& ending);
 
 std::pair<int, int> splitNumbers(const std::string& string,

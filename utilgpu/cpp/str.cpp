@@ -70,6 +70,15 @@ bool contains(const std::string& string, const std::string& substring)
     return string.find(substring) != std::string::npos;
 }
 
+bool startsWith(const std::string& string, const std::string& start)
+{
+    if (string.size() < start.size())
+    {
+        return false;
+    }
+    return std::equal(start.begin(), start.end(), string.begin());
+}
+
 bool endsWith(const std::string& string, const std::string& ending)
 {
     if (string.size() < ending.size())
