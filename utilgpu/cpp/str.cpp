@@ -25,6 +25,18 @@ void replaceAll(std::string& target, const std::string& old,
     }
 }
 
+std::string format(std::string& str, std::string replace)
+{
+    util::replace(str, "@", replace);
+    return str;
+}
+
+std::string format(std::string& str, const char* replace)
+{
+    util::replace(str, "@", replace);
+    return str;
+}
+
 // splits string at first occurrence
 std::pair<std::string, std::string> split(const std::string& string,
                                           const std::string& at)

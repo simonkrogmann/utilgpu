@@ -11,6 +11,7 @@ set(includes
     FileWatcher.h
     file.h
     str.h
+    str.hpp
     numeric.h
     cfl.h
     cfl.hpp

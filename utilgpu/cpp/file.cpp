@@ -3,6 +3,7 @@
 #include <sys/stat.h>
 #include <cassert>
 #include <fstream>
+#include <iostream>
 #include <sstream>
 
 #include "str.h"
@@ -81,6 +82,15 @@ bool File::exists() const
     return fileExists(path);
 }
 
+void File::requireExists() const
+{
+    if (!exists())
+    {
+        std::cout << "Error: " << path << " does not exist." << std::endl;
+        exit(1);
+    }
+}
+
 std::string File::directory() const
 {
     return directoryOf(path);
@@ -97,8 +107,16 @@ time_t File::timeStamp() const
     assert(error == 0);
     return stats.st_mtime;
 }
+
 bool File::operator<(const File& other) const
 {
     return path < other.path;
+}
+
+bool File::contentEquals(const File& other) const
+{
+    assert(exists());
+    assert(other.exists());
+    return content() == other.content();
 }
 }

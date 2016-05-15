@@ -30,7 +30,6 @@ int main(int argc, char* argv[])
         resources.push_back(resource);
     }
 
-    const std::string projectName{argv[1]};
     util::File output{argv[2]};
     if (output.exists() && output.timeStamp() > mostRecentlyEdited)
     {
@@ -63,8 +62,8 @@ template<> inline util::File loadResource<{{ProjectName}}>(const std::string& na
 }
 )";
 
-    std::ofstream file{argv[2]};
-    auto hash = std::to_string(std::hash<std::string>()(projectName));
+    const std::string projectName{argv[1]};
+    const auto hash = std::to_string(std::hash<std::string>()(projectName));
     util::replaceAll(fileTemplate, "{{ProjectName}}", projectName);
     util::replaceAll(fileTemplate, "{{ProjectNameHash}}", hash);
     bool firstRun = true;
@@ -80,7 +79,7 @@ template<> inline util::File loadResource<{{ProjectName}}>(const std::string& na
             "{\"" + resource.path + "\", R\"(" + resource.content() + ")\"}";
     }
     util::replaceAll(fileTemplate, "{{Resources}}", resourceString);
-    file << fileTemplate;
+    output.setContent(fileTemplate);
 
     return 0;
 }

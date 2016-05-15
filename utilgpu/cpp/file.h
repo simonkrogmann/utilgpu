@@ -20,8 +20,10 @@ public:
     void setContent(const std::string& content) const;
     std::string directory() const;
     bool exists() const;
+    void requireExists() const;
     time_t timeStamp() const;
     bool operator<(const File& other) const;
+    bool contentEquals(const File& other) const;
 
     std::string name;
     std::string path;

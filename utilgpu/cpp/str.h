@@ -11,6 +11,21 @@ void replace(std::string& target, const std::string& old,
 void replaceAll(std::string& target, const std::string& old,
                 const std::string& with);
 
+// The format functions are not very fast
+// Only use them for small strings or if performance does not matter.
+std::string format(std::string& str, std::string replace);
+
+std::string format(std::string& str, const char* replace);
+
+template <typename T>
+std::string format(std::string& str, T replace);
+
+template <typename T, typename... T2>
+std::string format(std::string& str, T replace, T2... rest);
+
+template <typename... T>
+std::string format(const char* str, T... rest);
+
 // splits string at first occurrence
 std::pair<std::string, std::string> split(const std::string& string,
                                           const std::string& at);
@@ -31,3 +46,5 @@ std::string stripWhitespace(const std::string& string);
 std::string stripSpaces(const std::string& string);
 size_t leadingSpaces(const std::string& string);
 }
+
+#include <utilgpu/cpp/str.hpp>
