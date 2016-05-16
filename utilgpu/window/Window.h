@@ -17,7 +17,10 @@ public:
     Window();
     ~Window();
 
+    // call before creating the window
     void requestGLVersion(const int& major, const int& minor);
+    void MSAASamples(const unsigned int& samples);
+
     int init(const std::string& title, const bool& fullscreen);
     void initAfterGL();
     void setRenderer(std::unique_ptr<Renderer> renderer);

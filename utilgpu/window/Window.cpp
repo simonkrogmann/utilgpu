@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include <cassert>
+#include <iostream>
 #include <map>
 
 #define GLFW_INCLUDE_NONE
@@ -30,22 +31,37 @@ Window::Window()
 {
     setFileResolution(1920, 1080);
     glfwInit();
+    glfwWindowHint(GLFW_AUTO_ICONIFY, 0);
 }
 
 Window::~Window()
 {
+    glfwTerminate();
     if (m_window != nullptr)
     {
-        glfwTerminate();
         windows.erase(m_window);
     }
 }
 
 void Window::requestGLVersion(const int& major, const int& minor)
 {
+    if (m_window)
+    {
+        std::cout << "GL Version should be requested before window creation."
+                  << std::endl;
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
-    glfwWindowHint(GLFW_AUTO_ICONIFY, 0);
+}
+
+void Window::MSAASamples(const unsigned int& samples)
+{
+    if (m_window)
+    {
+        std::cout << "MSAA should be requested before window creation."
+                  << std::endl;
+    }
+    glfwWindowHint(GLFW_SAMPLES, samples);
 }
 
 int Window::init(const std::string& title, const bool& fullscreen)
