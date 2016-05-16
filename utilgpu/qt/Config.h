@@ -16,10 +16,10 @@ public:
 
     void load(const int argc, char* argv[]);
 
-    std::string value(const std::string& key);
-    unsigned int valueUInt(const std::string& key);
-    void setValue(const std::string& key, const unsigned int& value);
-    void setValue(const std::string& key, const std::string& value);
+    template <typename T = std::string>
+    T value(const std::string& key);
+    template <typename T>
+    void setValue(const std::string& key, const T& value);
     void setDefaults(const std::map<std::string, std::string>& defaults);
     std::vector<std::string> additionalArguments();
 
@@ -33,4 +33,12 @@ private:
     std::vector<std::string> m_additionalArguments;
     std::map<std::string, std::string> m_defaults;
 };
+
+template <>
+std::string Config::value(const std::string& key);
+
+template <>
+void Config::setValue(const std::string& key, const std::string& value);
 }
+
+#include <utilgpu/qt/Config.hpp>

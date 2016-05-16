@@ -20,6 +20,18 @@ Config::~Config()
 {
 }
 
+template <>
+std::string Config::value(const std::string& key)
+{
+    return value<QString>(key).toUtf8().constData();
+}
+
+template <>
+void Config::setValue(const std::string& key, const std::string& value)
+{
+    setValue(key, QString::fromStdString(value));
+}
+
 void Config::load(const int argc, char* argv[])
 {
     const auto arguments = toVector(argc, argv);
@@ -77,34 +89,6 @@ void Config::setValues(const std::map<std::string, std::string>& pairs)
                                 QString::fromStdString(pair.second));
         }
     }
-    m_settings.sync();
-}
-
-std::string Config::value(const std::string& key)
-{
-    assert(m_defaults.find(key) != m_defaults.end());
-    const auto setting =
-        m_settings.value(QString::fromStdString(key),
-                         QString::fromStdString(m_defaults.at(key)));
-    return setting.toString().toUtf8().constData();
-}
-
-unsigned int Config::valueUInt(const std::string& key)
-{
-    const auto setting = m_settings.value(QString::fromStdString(key), 0);
-    return setting.toUInt();
-}
-
-void Config::setValue(const std::string& key, const unsigned int& value)
-{
-    m_settings.setValue(QString::fromStdString(key), value);
-    m_settings.sync();
-}
-
-void Config::setValue(const std::string& key, const std::string& value)
-{
-    m_settings.setValue(QString::fromStdString(key),
-                        QString::fromStdString(value));
     m_settings.sync();
 }
 }

@@ -6,6 +6,7 @@ set(sources
 
 set(includes
     Config.h
+    Config.hpp
 )
 
 set(libraries
