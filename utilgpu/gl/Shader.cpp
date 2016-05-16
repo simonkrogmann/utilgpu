@@ -52,23 +52,6 @@ Shader Shader::compute(const File& file, const std::vector<File>& includes)
     return Shader(file.name, file.content(), GL_COMPUTE_SHADER, includes);
 }
 
-bool Shader::ARBIncludeSupported()
-{
-    static auto supported =
-        glExtensionSupported("GL_ARB_shading_language_include");
-    static auto checked = false;
-    if (!checked)
-    {
-        checked = true;
-        if (!supported)
-        {
-            std::cout << "Warning: GL_ARB_shader_include is not supported. "
-                      << "The behaviour will be emulated instead." << std::endl;
-        }
-    }
-    return supported;
-}
-
 Shader::Shader(const std::string& name, const std::string& source,
                const GLenum& type, const std::vector<File>& includes)
     : m_name{name}, m_shader{0}
@@ -95,60 +78,25 @@ Shader::Shader(const std::string& name, const std::string& source,
     {
         printCompilationError();
     }
-
-    deleteIncludes();
 }
 
 void Shader::includeShader(const std::string& name, const std::string& source)
 {
     m_includes[name] = source;
-    if (ARBIncludeSupported())
-    {
-        glNamedStringARB(GL_SHADER_INCLUDE_ARB, glLength(name), name.c_str(),
-                         glLength(source), source.c_str());
-    }
 }
 
 void Shader::compileShader(const std::string& source)
 {
     auto uploadSource = source;
-    if (!ARBIncludeSupported())
+    for (const auto& include : m_includes)
     {
-        for (const auto& include : m_includes)
-        {
-            const auto directive = "#include \"" + include.first + "\"";
-            replace(uploadSource, directive, include.second);
-        }
+        const auto directive = "#include \"" + include.first + "\"";
+        replace(uploadSource, directive, include.second);
     }
     const auto shaderCString = uploadSource.c_str();
     const auto shaderLength = glLength(uploadSource);
     glShaderSource(m_shader, 1, &shaderCString, &shaderLength);
-    if (ARBIncludeSupported())
-    {
-        std::vector<const char*> includeCStrings;
-        for (const auto& include : m_includes)
-        {
-            includeCStrings.push_back(include.first.c_str());
-        }
-        glCompileShaderIncludeARB(m_shader, glLength(includeCStrings),
-                                  includeCStrings.data(), nullptr);
-    }
-    else
-    {
-        glCompileShader(m_shader);
-    }
-}
-
-void Shader::deleteIncludes()
-{
-    if (ARBIncludeSupported())
-    {
-        for (const auto& include : m_includes)
-        {
-            glDeleteNamedStringARB(glLength(include.first),
-                                   include.first.c_str());
-        }
-    }
+    glCompileShader(m_shader);
 }
 
 Shader::Shader(Shader&& old) : m_name{old.m_name}, m_shader{old.m_shader}
@@ -159,6 +107,16 @@ Shader::Shader(Shader&& old) : m_name{old.m_name}, m_shader{old.m_shader}
 Shader::~Shader()
 {
     glDeleteShader(m_shader);
+}
+
+GLuint Shader::get() const
+{
+    return m_shader;
+}
+
+std::string Shader::name() const
+{
+    return m_name;
 }
 
 bool Shader::isCompiled() const

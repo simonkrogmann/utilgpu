@@ -33,7 +33,7 @@ Program::~Program()
 
 GLuint Program::linkShaders(const Group<Shader>& shaders)
 {
-    GLuint linkProgram = glCreateProgram();
+    auto linkProgram = glCreateProgram();
 
     for (const auto& shader : shaders)
     {

@@ -11,7 +11,7 @@ void replace(std::string& target, const std::string& old,
 void replaceAll(std::string& target, const std::string& old,
                 const std::string& with);
 
-// The format functions are not very fast
+// The format functions are not very fast.
 // Only use them for small strings or if performance does not matter.
 std::string format(std::string& str, std::string replace);
 

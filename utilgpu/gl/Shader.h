@@ -39,13 +39,12 @@ public:
 
     bool isCompiled() const;
     void printCompilationError() const;
-    GLuint get() const { return m_shader; }
+    GLuint get() const;
+    std::string name() const;
+
 private:
     void includeShader(const std::string& name, const std::string& source);
     void compileShader(const std::string& source);
-    void deleteIncludes();
-
-    static bool ARBIncludeSupported();
 
     std::string m_name;
     GLuint m_shader;
