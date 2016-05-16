@@ -11,12 +11,6 @@
 using namespace gl;
 namespace util
 {
-unsigned int Shader::id = 0;
-std::string Shader::uniqueId()
-{
-    return std::to_string(++id);
-}
-
 std::string Shader::includeString(const std::string& name)
 {
     return "#include \"/" + name + "\"\n";
@@ -25,11 +19,6 @@ std::string Shader::includeString(const std::string& name)
 std::string Shader::textureString(const std::string& name)
 {
     return "uniform sampler2D " + name + ";\n";
-}
-
-std::string Shader::idString()
-{
-    return "const int shader_id = " + uniqueId() + ";\n";
 }
 
 Shader Shader::vertex(const File& file, const std::vector<File>& includes)
@@ -59,12 +48,6 @@ Shader::Shader(const std::string& name, const std::string& source,
     auto shaderSource = source;
     const static auto version = glslVersion();
     replace(shaderSource, "#version 330", "#version " + version);
-
-    if (contains(shaderSource, "//id"))
-    {
-        const auto idReplacement = (includes.size() > 0) ? idString() : "";
-        replace(shaderSource, "//id", idReplacement);
-    }
 
     // handle includes
     for (const auto& include : includes)

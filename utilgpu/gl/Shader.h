@@ -15,12 +15,8 @@ class File;
 class Shader
 {
 public:
-    static unsigned int id;
-    static std::string uniqueId();
-
     static std::string includeString(const std::string& name);
     static std::string textureString(const std::string& name);
-    static std::string idString();
 
     static Shader vertex(const File& file,
                          const std::vector<File>& includes = {});
