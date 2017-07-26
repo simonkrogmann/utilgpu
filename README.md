@@ -2,11 +2,15 @@
 
 A utility library for graphics related tasks written in C++.
 
-##Sublibraries
-###cpp
-###qt
+## Sublibraries
+
+### cpp
+
+### qt
 Depends on Qt 5
-###gl
+
+### gl
 Depends on glbinding
-###cl
+
+### cl
 Depends on OpenCL
