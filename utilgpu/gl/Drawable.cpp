@@ -2,15 +2,9 @@
 
 namespace util
 {
-Drawable::Drawable()
-{
-}
+Drawable::Drawable() {}
 
-Drawable::~Drawable()
-{
-}
+Drawable::~Drawable() {}
 
-void Drawable::draw()
-{
-}
+void Drawable::draw() {}
 }

@@ -64,6 +64,11 @@ void Window::MSAASamples(const unsigned int& samples)
     glfwWindowHint(GLFW_SAMPLES, samples);
 }
 
+void Window::alwaysRedraw(bool alwaysRedraw)
+{
+    m_alwaysRedraw = alwaysRedraw;
+}
+
 int Window::init(const std::string& title, const bool& fullscreen)
 {
     auto monitor = fullscreen ? glfwGetPrimaryMonitor() : nullptr;
@@ -142,9 +147,15 @@ void Window::loop()
     while (!glfwWindowShouldClose(m_window))
     {
         m_renderer->render(m_viewport);
-
         glfwSwapBuffers(m_window);
-        glfwPollEvents();
+        if (m_alwaysRedraw)
+        {
+            glfwPollEvents();
+        }
+        else
+        {
+            glfwWaitEvents();
+        }
     }
 }
 }

@@ -19,9 +19,7 @@ Renderer::Renderer()
     m_frameTimeDisplay.init();
 }
 
-Renderer::~Renderer()
-{
-}
+Renderer::~Renderer() {}
 
 void Renderer::render(const util::viewport::Viewport& viewport)
 {
@@ -57,6 +55,8 @@ void Renderer::renderOffscreen(const Framebuffer* fbo,
 
     render(resolution);
 }
+
+void Renderer::saveFramebuffers() {}
 
 void Renderer::addDependentPath(const File& path)
 {

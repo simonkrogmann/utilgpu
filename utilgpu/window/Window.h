@@ -20,6 +20,7 @@ public:
     // call before creating the window
     void requestGLVersion(const int& major, const int& minor);
     void MSAASamples(const unsigned int& samples);
+    void alwaysRedraw(bool alwaysRedraw);
 
     int init(const std::string& title, const bool& fullscreen);
     void initAfterGL();
@@ -36,5 +37,6 @@ private:
     std::unique_ptr<Renderer> m_renderer;
     viewport::Viewport m_viewport;
     viewport::Viewport m_fileResolution;
+    bool m_alwaysRedraw = true;
 };
 }

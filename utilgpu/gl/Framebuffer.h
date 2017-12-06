@@ -40,6 +40,7 @@ public:
     Texture* getColor() const;
     Texture* getDepth() const;
     Texture* getTexture(const GLenum& target) const;
+    std::unique_ptr<Texture>&& stealTexture(const GLenum& target);
 
 private:
     GLuint m_framebuffer;

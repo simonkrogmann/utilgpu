@@ -30,9 +30,7 @@ ShadowMap::ShadowMap(const size_t& width, const size_t& height)
         Shader::fragment(loadResource<utilgpu>("shader/shadowmap.frag")));
     m_program = std::make_unique<Program>(shaders);
 }
-ShadowMap::~ShadowMap()
-{
-}
+ShadowMap::~ShadowMap() {}
 void ShadowMap::draw(const std::vector<Model>& models,
                      const glm::mat4& lightViewProjection)
 {

@@ -15,13 +15,9 @@ using namespace gl;
 
 namespace util
 {
-FrameTimeDisplay::FrameTimeDisplay()
-{
-}
+FrameTimeDisplay::FrameTimeDisplay() {}
 
-FrameTimeDisplay::~FrameTimeDisplay()
-{
-}
+FrameTimeDisplay::~FrameTimeDisplay() {}
 
 void FrameTimeDisplay::init()
 {

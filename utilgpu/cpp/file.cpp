@@ -54,9 +54,7 @@ File::File(const std::string& name, const std::string& path)
 {
 }
 
-File::File(const std::string& path) : File{rsplit(path, "/").second, path}
-{
-}
+File::File(const std::string& path) : File{rsplit(path, "/").second, path} {}
 
 std::string File::content() const
 {

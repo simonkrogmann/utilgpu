@@ -16,9 +16,7 @@ Config::Config(const std::string& organization, const std::string& name)
 {
 }
 
-Config::~Config()
-{
-}
+Config::~Config() {}
 
 template <>
 std::string Config::value(const std::string& key)

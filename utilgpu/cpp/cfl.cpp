@@ -136,9 +136,7 @@ CFLNode::CFLNode(const std::string& name, CFLNode* parent, const int& level)
 {
 }
 
-CFLNode::~CFLNode()
-{
-}
+CFLNode::~CFLNode() {}
 
 std::unique_ptr<CFLNode> CFLNode::ErrorNode(const unsigned int& lineNumber,
                                             const std::string& message)

@@ -30,7 +30,7 @@ public:
                          const util::viewport::Viewport& resolution);
     void renderToFile(const util::viewport::Viewport& resolution);
     void toggleFrameTimeDisplay();
-    virtual void saveFramebuffers() = 0;
+    virtual void saveFramebuffers();
 
 protected:
     void addDependentPath(const util::File& path);

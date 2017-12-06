@@ -8,13 +8,9 @@
 
 namespace util
 {
-FileWatcher::FileWatcher() : m_files{}
-{
-}
+FileWatcher::FileWatcher() : m_files{} {}
 
-FileWatcher::~FileWatcher()
-{
-}
+FileWatcher::~FileWatcher() {}
 
 void FileWatcher::addFile(const File& file)
 {

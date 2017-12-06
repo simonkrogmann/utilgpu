@@ -1,5 +1,8 @@
 #include "Texture.h"
 
+#include <unordered_map>
+#include <vector>
+
 #include <glbinding/gl/gl.h>
 #include <utilgpu/cpp/file.h>
 #include <utilgpu/gl/image.h>
@@ -63,6 +66,16 @@ void Texture::size(const size_t& width, const size_t& height)
     m_height = height;
 }
 
+void Texture::setData(const size_t& width, const size_t& height,
+                      const GLvoid* data)
+{
+    bind();
+    glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(m_internalFormat), width,
+                 height, 0, m_format, m_type, data);
+    m_width = width;
+    m_height = height;
+}
+
 GLuint Texture::get() const
 {
     return m_texture;
@@ -78,7 +91,7 @@ void Texture::format(const GLenum& format, const GLenum& internalFormat,
 
 void Texture::save(const std::string& filename)
 {
-    const std::map<GLenum, int> channels{
+    const std::unordered_map<GLenum, int> channels{
         {GL_DEPTH_COMPONENT, 1}, {GL_RGBA, 4}, {GL_RGB, 3}, {GL_RED, 1}};
     bind();
     std::vector<unsigned char> imageData(m_width * m_height * 4);

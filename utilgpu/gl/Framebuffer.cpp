@@ -149,4 +149,9 @@ Texture* Framebuffer::getTexture(const GLenum& target) const
 {
     return (*m_textures.find(target)).second.get();
 }
+
+std::unique_ptr<Texture>&& Framebuffer::stealTexture(const GLenum& target)
+{
+    return std::move((*m_textures.find(target)).second);
+}
 }

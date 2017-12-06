@@ -21,6 +21,7 @@ public:
     void bind() const;
     void load(const File& file);
     void size(const size_t& width, const size_t& height);
+    void setData(const size_t& width, const size_t& height, const GLvoid* data);
     void parameter(GLenum type, GLenum parameter);
     void format(const GLenum& format, const GLenum& internalFormat,
                 const GLenum& type);
