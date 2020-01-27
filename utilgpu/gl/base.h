@@ -2,14 +2,14 @@
 
 #include <string>
 
-#include <glbinding/Binding.h>
+#include <glbinding/ProcAddress.h>
 #include <glbinding/gl/gl.h>
 
 namespace util
 {
 using namespace gl;
 
-void glInitialize(glbinding::GetProcAddress& context);
+void glInitialize(glbinding::GetProcAddress context);
 void glContextInfo();
 
 GLint glGetInteger(const GLenum& symbol);

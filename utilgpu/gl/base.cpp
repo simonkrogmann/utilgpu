@@ -16,7 +16,7 @@ namespace util
 {
 using namespace gl;
 
-void glInitialize(glbinding::GetProcAddress& context)
+void glInitialize(glbinding::GetProcAddress context)
 {
     glbinding::Binding::initialize(context);
 #ifndef NDEBUG
@@ -44,7 +44,7 @@ std::string toString(const GLubyte* glString)
 bool glExtensionSupported(const std::string& extension)
 {
     const auto extensionsRaw = glGetString(GL_EXTENSIONS);
-    if (extensionsRaw == NULL)
+    if (extensionsRaw == nullptr)
     {
         glGetError();
         return false;

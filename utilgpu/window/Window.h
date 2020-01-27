@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <string>
 
@@ -39,4 +40,7 @@ private:
     viewport::Viewport m_fileResolution;
     bool m_alwaysRedraw = true;
 };
+
+void (*(*(getGLProcAddressPointer()))(const char*))();
+
 }  // namespace util

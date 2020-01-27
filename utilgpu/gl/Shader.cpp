@@ -115,7 +115,7 @@ void Shader::printCompilationError() const
     GLint length;
     glGetShaderiv(m_shader, GL_INFO_LOG_LENGTH, &length);
     std::unique_ptr<char> infoLog{new char[length + 1]};
-    glGetShaderInfoLog(m_shader, length, NULL, infoLog.get());
+    glGetShaderInfoLog(m_shader, length, nullptr, infoLog.get());
     std::cout << infoLog.get() << std::endl;
 }
 }  // namespace util

@@ -14,6 +14,11 @@ namespace
 {
 std::map<GLFWwindow*, Window*> windows;
 
+void ErrorCallback(int, const char* description)
+{
+    std::cout << "GLFW Error: " << description << std::endl;
+}
+
 void onResize(GLFWwindow* window, int width, int height)
 {
     assert(width >= 0 && height >= 0);
@@ -30,6 +35,7 @@ Window::Window()
     : m_window{nullptr}, m_viewport{640, 480}, m_fileResolution{0, 0}
 {
     setFileResolution(1920, 1080);
+    glfwSetErrorCallback(ErrorCallback);
     glfwInit();
     glfwWindowHint(GLFW_AUTO_ICONIFY, 0);
 }
@@ -91,6 +97,11 @@ int Window::init(const std::string& title, const bool& fullscreen)
     windows[m_window] = this;
 
     return 0;
+}
+
+void (*(*(getGLProcAddressPointer()))(const char*))()
+{
+    return glfwGetProcAddress;
 }
 
 void Window::initAfterGL()

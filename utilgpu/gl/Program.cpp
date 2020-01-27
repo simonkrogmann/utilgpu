@@ -63,7 +63,7 @@ void Program::printLinkingError() const
     GLint length;
     glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &length);
     std::unique_ptr<char> infoLog{new char[length + 1]};
-    glGetProgramInfoLog(m_program, length, NULL, infoLog.get());
+    glGetProgramInfoLog(m_program, length, nullptr, infoLog.get());
     std::cout << infoLog.get() << std::endl;
 }
 
