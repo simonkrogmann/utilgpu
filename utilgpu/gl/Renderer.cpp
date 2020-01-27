@@ -58,6 +58,8 @@ void Renderer::renderOffscreen(const Framebuffer* fbo,
 
 void Renderer::saveFramebuffers() {}
 
+void Renderer::keyPressed(int key, bool controlPressed) {}
+
 void Renderer::addDependentPath(const File& path)
 {
     m_fileWatcher.addFile(path);

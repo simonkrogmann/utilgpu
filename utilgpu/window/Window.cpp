@@ -145,6 +145,10 @@ void Window::keyPress(int key, int action, int mods)
     {
         glfwSetWindowShouldClose(m_window, 1);
     }
+    else if (action == GLFW_PRESS)
+    {
+        m_renderer->keyPressed(key, mods == GLFW_MOD_CONTROL);
+    }
 }
 
 void Window::resize(const unsigned int& width, const unsigned int& height)

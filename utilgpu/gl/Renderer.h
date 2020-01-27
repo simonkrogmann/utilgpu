@@ -31,6 +31,7 @@ public:
     void renderToFile(const util::viewport::Viewport& resolution);
     void toggleFrameTimeDisplay();
     virtual void saveFramebuffers();
+    virtual void keyPressed(int key, bool controlPressed);
 
 protected:
     void addDependentPath(const util::File& path);
