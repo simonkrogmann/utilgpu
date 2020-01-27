@@ -15,6 +15,6 @@ std::vector<cl_device_id> allDevices();
 cl_device_id chooseDevice(const std::vector<cl_device_id>& devices,
                           const cl_device_info& param);
 void printDeviceInfo(const cl_device_id& device);
-}
+}  // namespace cl
 
 #include "device.hpp"

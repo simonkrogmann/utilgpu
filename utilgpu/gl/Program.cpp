@@ -81,4 +81,4 @@ GLint Program::operator[](const std::string& uniformName) const
 {
     return getUniformLocation(uniformName);
 }
-}
+}  // namespace util

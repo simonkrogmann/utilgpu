@@ -56,4 +56,4 @@ File ShadowMap::getShaderInclude()
 {
     return loadResource<utilgpu>("shader/shadowmap_lookup.frag");
 }
-}
+}  // namespace util

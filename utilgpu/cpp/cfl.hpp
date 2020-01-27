@@ -33,4 +33,4 @@ std::array<float, size> CFLNode::valueVector(
     }
     return results;
 }
-}
+}  // namespace util

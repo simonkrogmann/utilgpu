@@ -41,8 +41,7 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
         {
             if (afterString)
             {
-                if (c == '#')
-                    break;
+                if (c == '#') break;
                 if (c != ' ')
                     return ErrorNode(lineNumber,
                                      "Only comments can follow strings.");
@@ -221,4 +220,4 @@ CFLNode* CFLNode::operator[](const std::string& key)
     }
     return addChild(key, m_level + 1);
 }
-}
+}  // namespace util

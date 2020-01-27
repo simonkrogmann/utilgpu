@@ -44,4 +44,4 @@ private:
     bool m_measureFrameTime = false;
     util::FrameTimeDisplay m_frameTimeDisplay;
 };
-}
+}  // namespace util

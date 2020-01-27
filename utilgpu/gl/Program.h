@@ -32,4 +32,4 @@ private:
 
     GLuint m_program;
 };
-}
+}  // namespace util

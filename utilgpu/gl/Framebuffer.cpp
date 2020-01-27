@@ -9,8 +9,8 @@
 #include <utilgpu/cpp/StateKeeper.h>
 #include <utilgpu/gl/Texture.h>
 #include <utilgpu/gl/base.h>
+#include <utilgpu/gl/image.h>
 #include <utilgpu/gl/viewport.h>
-#include <utilgpu/qt/texture.h>
 
 using namespace gl;
 
@@ -80,8 +80,8 @@ void Framebuffer::check()
     auto framebufferStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (framebufferStatus != GL_FRAMEBUFFER_COMPLETE)
     {
-        std::cout << "Framebuffer is incomplete: " << framebufferStatus
-                  << std::endl;
+        std::cout << "Framebuffer is incomplete: "
+                  << static_cast<unsigned int>(framebufferStatus) << std::endl;
     }
 }
 
@@ -154,4 +154,4 @@ std::unique_ptr<Texture>&& Framebuffer::stealTexture(const GLenum& target)
 {
     return std::move((*m_textures.find(target)).second);
 }
-}
+}  // namespace util

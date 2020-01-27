@@ -59,4 +59,4 @@ void FrameTimeDisplay::render(const viewport::Viewport&)
     glUniform1ui((*m_program)["numDigits"], numDigits);
     m_screen.draw();
 }
-}
+}  // namespace util

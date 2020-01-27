@@ -23,4 +23,4 @@ void Config::setValue(const std::string& key, const T& value)
     m_settings.setValue(QString::fromStdString(key), value);
     m_settings.sync();
 }
-}
+}  // namespace util

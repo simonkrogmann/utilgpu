@@ -20,5 +20,5 @@ Viewport get();
 void set(const Viewport& data);
 
 StateKeeper use(const Viewport& resolution);
-}
-}
+}  // namespace viewport
+}  // namespace util

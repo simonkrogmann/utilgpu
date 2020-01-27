@@ -28,4 +28,4 @@ void saveImage(const std::vector<unsigned char>& data, const int& width,
     const auto status = flippedImage.save(QString::fromStdString(filename));
     assert(status);
 }
-}
+}  // namespace util

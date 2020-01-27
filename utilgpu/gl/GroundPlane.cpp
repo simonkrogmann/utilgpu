@@ -51,4 +51,4 @@ void GroundPlane::draw()
     glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
     glBindVertexArray(0);
 }
-}
+}  // namespace util

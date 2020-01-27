@@ -39,6 +39,6 @@ std::string Config::value(const std::string& key);
 
 template <>
 void Config::setValue(const std::string& key, const std::string& value);
-}
+}  // namespace util
 
 #include <utilgpu/qt/Config.hpp>

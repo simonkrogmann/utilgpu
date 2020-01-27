@@ -37,4 +37,4 @@ private:
     size_t m_width = 0;
     size_t m_height = 0;
 };
-}
+}  // namespace util

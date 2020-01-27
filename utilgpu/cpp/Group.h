@@ -31,4 +31,4 @@ public:
 private:
     std::vector<T> v;
 };
-}
+}  // namespace util

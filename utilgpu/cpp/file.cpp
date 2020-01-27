@@ -117,4 +117,4 @@ bool File::contentEquals(const File& other) const
     assert(other.exists());
     return content() == other.content();
 }
-}
+}  // namespace util

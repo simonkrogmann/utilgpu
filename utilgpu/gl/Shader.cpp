@@ -118,4 +118,4 @@ void Shader::printCompilationError() const
     glGetShaderInfoLog(m_shader, length, NULL, infoLog.get());
     std::cout << infoLog.get() << std::endl;
 }
-}
+}  // namespace util

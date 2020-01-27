@@ -5,31 +5,23 @@
 #include <string>
 
 #include <glbinding/Binding.h>
-#include <glbinding/callbacks.h>
+#include <glbinding/CallbackMask.h>
 #include <glbinding/gl/gl.h>
+
+#ifndef NDEBUG
+#include <glbinding-aux/debug.h>
+#endif
 
 namespace util
 {
 using namespace gl;
 
-void glInitialize()
+void glInitialize(glbinding::GetProcAddress& context)
 {
-    glbinding::Binding::initialize(false);
-    glbinding::setCallbackMaskExcept(
-        glbinding::CallbackMask::After | glbinding::CallbackMask::Parameters,
-        {"glGetError"});
-    glbinding::setAfterCallback([](const glbinding::FunctionCall& call) {
-        const auto error = glGetError();
-        if (error != GL_NO_ERROR)
-        {
-            std::cout << error << " in " << call.function->name()
-                      << " with parameters:" << std::endl;
-            for (const auto& parameter : call.parameters)
-            {
-                std::cout << "    " << parameter->asString() << std::endl;
-            }
-        }
-    });
+    glbinding::Binding::initialize(context);
+#ifndef NDEBUG
+    glbinding::aux::enableGetErrorCallback();
+#endif
 }
 
 void glContextInfo()
@@ -78,4 +70,4 @@ std::string glslVersion()
     }
     return glVersion + "0";
 }
-}
+}  // namespace util

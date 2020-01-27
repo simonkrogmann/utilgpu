@@ -24,4 +24,4 @@ std::string format(const char *str, T... rest)
     std::string pattern{str};
     return format(pattern, rest...);
 }
-}
+}  // namespace util

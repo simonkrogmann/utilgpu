@@ -17,4 +17,4 @@ StateKeeper::~StateKeeper()
 {
     m_restoreFunction();
 }
-}
+}  // namespace util

@@ -43,6 +43,6 @@ private:
 };
 
 std::unique_ptr<CFLNode> parseCFL(std::string filename);
-}
+}  // namespace util
 
 #include <utilgpu/cpp/cfl.hpp>

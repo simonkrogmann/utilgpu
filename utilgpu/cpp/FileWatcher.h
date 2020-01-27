@@ -21,4 +21,4 @@ public:
 private:
     std::map<File, time_t> m_files;
 };
-}
+}  // namespace util

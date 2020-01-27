@@ -42,5 +42,5 @@ StateKeeper use(const Viewport& resolution)
     set(resolution);
     return {[=]() { set(old); }};
 }
-}
-}
+}  // namespace viewport
+}  // namespace util

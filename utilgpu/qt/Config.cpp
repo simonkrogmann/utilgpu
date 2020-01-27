@@ -89,4 +89,4 @@ void Config::setValues(const std::map<std::string, std::string>& pairs)
     }
     m_settings.sync();
 }
-}
+}  // namespace util

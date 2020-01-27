@@ -36,4 +36,4 @@ bool FileWatcher::check()
     }
     return changed;
 }
-}
+}  // namespace util

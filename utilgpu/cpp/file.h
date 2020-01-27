@@ -32,4 +32,4 @@ private:
     std::string m_content = "";
     bool m_storesContent = false;
 };
-}
+}  // namespace util

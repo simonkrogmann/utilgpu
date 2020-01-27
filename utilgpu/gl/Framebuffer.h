@@ -49,4 +49,4 @@ private:
     bool m_useNone;
     std::map<GLenum, std::unique_ptr<Texture>> m_textures;
 };
-}
+}  // namespace util

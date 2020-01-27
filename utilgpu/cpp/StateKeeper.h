@@ -15,4 +15,4 @@ public:
 private:
     std::function<void()> m_restoreFunction;
 };
-}
+}  // namespace util

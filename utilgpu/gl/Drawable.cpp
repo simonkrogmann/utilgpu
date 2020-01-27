@@ -7,4 +7,4 @@ Drawable::Drawable() {}
 Drawable::~Drawable() {}
 
 void Drawable::draw() {}
-}
+}  // namespace util

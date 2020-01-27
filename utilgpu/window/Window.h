@@ -39,4 +39,4 @@ private:
     viewport::Viewport m_fileResolution;
     bool m_alwaysRedraw = true;
 };
-}
+}  // namespace util

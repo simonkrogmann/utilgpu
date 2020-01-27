@@ -2,13 +2,14 @@
 
 #include <string>
 
+#include <glbinding/Binding.h>
 #include <glbinding/gl/gl.h>
 
 namespace util
 {
 using namespace gl;
 
-void glInitialize();
+void glInitialize(glbinding::GetProcAddress& context);
 void glContextInfo();
 
 GLint glGetInteger(const GLenum& symbol);
@@ -23,4 +24,4 @@ bool glExtensionSupported(const std::string& extension);
 std::string glslVersion();
 
 std::string toString(const GLubyte* glString);
-}
+}  // namespace util

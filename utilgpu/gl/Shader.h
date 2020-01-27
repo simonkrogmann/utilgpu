@@ -46,4 +46,4 @@ private:
     GLuint m_shader;
     std::map<std::string, std::string> m_includes;
 };
-}
+}  // namespace util

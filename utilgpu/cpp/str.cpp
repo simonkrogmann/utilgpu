@@ -143,4 +143,4 @@ size_t leadingSpaces(const std::string& string)
         ;
     return number;
 }
-}
+}  // namespace util

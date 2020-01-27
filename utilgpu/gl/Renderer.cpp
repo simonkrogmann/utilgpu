@@ -67,4 +67,4 @@ void Renderer::addDependentPath(const std::string& path)
 {
     m_fileWatcher.addFile(File{path});
 }
-}
+}  // namespace util

@@ -24,7 +24,7 @@ void onKeyPress(GLFWwindow* window, int key, int, int action, int mods)
 {
     windows[window]->keyPress(key, action, mods);
 }
-}
+}  // namespace
 
 Window::Window()
     : m_window{nullptr}, m_viewport{640, 480}, m_fileResolution{0, 0}
@@ -158,4 +158,4 @@ void Window::loop()
         }
     }
 }
-}
+}  // namespace util

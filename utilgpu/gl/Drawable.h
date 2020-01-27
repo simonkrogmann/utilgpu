@@ -17,4 +17,4 @@ public:
 protected:
     GLuint m_vao;
 };
-}
+}  // namespace util

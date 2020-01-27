@@ -16,4 +16,4 @@ public:
     virtual void draw() override;
     Shader getVertexShader();
 };
-}
+}  // namespace util

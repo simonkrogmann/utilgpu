@@ -10,4 +10,4 @@ struct Model
     Drawable* drawable;
     glm::mat4 matrix;
 };
-}
+}  // namespace util

@@ -105,4 +105,4 @@ void Texture::generateMipMap()
     parameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glGenerateMipmap(GL_TEXTURE_2D);
 }
-}
+}  // namespace util

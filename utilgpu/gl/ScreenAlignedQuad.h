@@ -12,4 +12,4 @@ public:
 
     virtual void draw() override;
 };
-}
+}  // namespace util

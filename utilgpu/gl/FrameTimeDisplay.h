@@ -31,4 +31,4 @@ private:
     float m_value = 0;
     std::chrono::time_point<std::chrono::steady_clock> m_start;
 };
-}
+}  // namespace util

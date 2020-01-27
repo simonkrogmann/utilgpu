@@ -68,4 +68,4 @@ void printDeviceInfo(const cl_device_id& device)
               << cl::deviceInfo<cl_uint>(device, CL_DEVICE_MAX_COMPUTE_UNITS)
               << " computation units." << std::endl;
 }
-}
+}  // namespace cl

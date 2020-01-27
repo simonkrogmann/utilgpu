@@ -15,4 +15,4 @@ std::vector<int> toDigits(unsigned int number)
     std::reverse(digits.begin(), digits.end());
     return digits;
 }
-}
+}  // namespace util
