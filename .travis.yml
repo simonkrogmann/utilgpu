@@ -14,10 +14,11 @@ addons:
       - libglbinding-dev
       - libglfw3-dev
 install:
-  - mkdir build && cd build
-  - svn checkout https://cvs.khronos.org/svn/repos/ogl/trunk/ecosystem/public/sdk/tools/glslang/Install/Linux
-  - cd Linux && ./install
+  - wget https://github.com/KhronosGroup/glslang/releases/download/master-tot/glslang-master-linux-Release.zip
+  - unzip -u -q glslang-master-linux-Release.zip
   - cd ..
+  - export PATH=${TRAVIS_BUILD_DIR}/glslang/bin:$PATH
+  - glslangValidator --version
 before_script:
   - cppcheck ../utilgpu
 script:
