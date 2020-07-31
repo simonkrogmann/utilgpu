@@ -1,7 +1,10 @@
 #pragma once
 #include <utilgpu/qt/Config.h>
 
+#ifndef NDEBUG
 #include <cassert>
+#include <iostream>
+#endif
 
 #include <QString>
 
@@ -10,7 +13,13 @@ namespace util
 template <typename T>
 T Config::value(const std::string& key)
 {
-    assert(m_defaults.find(key) != m_defaults.end());
+#ifndef NDEBUG
+    if (m_defaults.find(key) == m_defaults.end())
+    {
+        std::cerr << "Key '" << key << "' not in defaults" << std::endl;
+        assert(false);
+    }
+#endif
     const auto setting =
         m_settings.value(QString::fromStdString(key),
                          QString::fromStdString(m_defaults.at(key)));

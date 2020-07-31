@@ -32,33 +32,10 @@ void Config::setValue(const std::string& key, const std::string& value)
 
 void Config::load(const int argc, char* argv[])
 {
-    const auto arguments = toVector(argc, argv);
-    const auto options = parseArguments(arguments);
-
-    setValues(options);
-}
-
-void Config::setDefaults(const std::map<std::string, std::string>& defaults)
-{
-    m_defaults = defaults;
-}
-
-std::vector<std::string> Config::toVector(const int& argc, char* argv[])
-{
-    std::vector<std::string> arguments;
+    std::map<std::string, std::string> options;
     for (int i = 0; i < argc; ++i)
     {
-        arguments.push_back(argv[i]);
-    }
-    return arguments;
-}
-
-std::map<std::string, std::string> Config::parseArguments(
-    const std::vector<std::string>& arguments)
-{
-    std::map<std::string, std::string> options;
-    for (const auto& argument : arguments)
-    {
+        std::string argument = argv[i];
         if (argument.substr(0, 2) == "--" && util::contains(argument, "="))
         {
             const auto split = util::split(argument.substr(2), "=");
@@ -69,7 +46,13 @@ std::map<std::string, std::string> Config::parseArguments(
             m_additionalArguments.push_back(argument);
         }
     }
-    return options;
+
+    setValues(options);
+}
+
+void Config::setDefaults(const std::map<std::string, std::string>& defaults)
+{
+    m_defaults = defaults;
 }
 
 std::vector<std::string> Config::additionalArguments()
