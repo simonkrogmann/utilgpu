@@ -10,7 +10,7 @@ namespace util
 class CFLNode
 {
 public:
-    static std::unique_ptr<CFLNode> parseCFL(std::string filename);
+    static std::unique_ptr<CFLNode> parseCFL(const std::string& filename);
     static std::unique_ptr<CFLNode> ErrorNode(const unsigned int& lineNumber,
                                               const std::string& message);
 
@@ -42,7 +42,7 @@ private:
     std::vector<std::string> m_values;
 };
 
-std::unique_ptr<CFLNode> parseCFL(std::string filename);
+std::unique_ptr<CFLNode> parseCFL(const std::string& filename);
 }  // namespace util
 
 #include <utilgpu/cpp/cfl.hpp>

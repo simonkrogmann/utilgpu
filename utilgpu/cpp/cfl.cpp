@@ -7,12 +7,12 @@
 
 namespace util
 {
-std::unique_ptr<CFLNode> parseCFL(std::string filename)
+std::unique_ptr<CFLNode> parseCFL(const std::string& filename)
 {
     return CFLNode::parseCFL(filename);
 }
 
-std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
+std::unique_ptr<CFLNode> CFLNode::parseCFL(const std::string& filename)
 {
     auto root = std::make_unique<CFLNode>("root");
     auto current = root.get();
@@ -23,6 +23,8 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
     unsigned int lineNumber = 1;
     bool directValue = false;
     unsigned int lastNodeLine = 0;
+
+    // strings can span multiple lines
     bool stringMode = false;
     std::string collected = "";
     while (std::getline(sourceFile, line))
@@ -36,6 +38,7 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
             collected += " ";
         }
 
+        bool explicitString = false;
         bool afterString = false;
         for (const auto& c : line)
         {
@@ -68,6 +71,7 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
             {
                 assert(collected == "");
                 stringMode = true;
+                explicitString = true;
             }
             else if (c == ':')
             {
@@ -98,9 +102,11 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(std::string filename)
                 collected += c;
             }
         }
+        // handles the case, where someone explicitly specifies an empty string
+        bool thereIsAString = collected.size() > 0 || explicitString;
 
         // save value into parent node
-        if (!stringMode && collected.size() > 0)
+        if (!stringMode && thereIsAString)
         {
             if (directValue)
             {
