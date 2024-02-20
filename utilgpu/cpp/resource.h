@@ -4,10 +4,10 @@
 
 namespace util
 {
-template <long long i>
+template <unsigned long long i>
 util::File loadResource(const std::string& name)
 {
-    static_assert(i == 0, "No such project to include from.");
+    static_assert(i == 0ull, "No such project to include from.");
     return {name, ""};
 }
 }  // namespace util

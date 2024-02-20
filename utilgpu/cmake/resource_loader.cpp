@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 #include <iostream>
 #include <map>
 
-const long long {{ProjectName}} = {{ProjectNameHash}};
+const unsigned long long {{ProjectName}} = {{ProjectNameHash}}ull;
 
 namespace util {
 

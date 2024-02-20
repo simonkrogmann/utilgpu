@@ -1,4 +1,4 @@
-find_package(Qt5Core REQUIRED)
+find_package(Qt6Core REQUIRED)
 
 set(sources
     Config.cpp
@@ -11,7 +11,7 @@ set(includes
 
 set(libraries
     cpp
-    Qt5::Core
+    Qt6::Core
 )
 
 create_library(${project} qt "${sources}" "${includes}" "${libraries}")

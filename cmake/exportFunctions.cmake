@@ -47,7 +47,8 @@ function(generate_resource_header project target resources)
 endfunction()
 
 if (use_utilgpu_compilation_options)
-    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD 23)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/local/include")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-math-errno -flto \
         -march=native -ffunction-sections -fdata-sections")
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
