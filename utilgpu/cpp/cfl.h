@@ -32,6 +32,8 @@ public:
     bool valid() const;
     std::string message() const;
 
+    void print() const;
+
 private:
     CFLNode* addChild(const std::string& name, const int& level);
 

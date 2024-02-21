@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <fstream>
+#include <iostream>
 
 #include <utilgpu/cpp/str.h>
 
@@ -42,12 +43,12 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(const std::string& filename)
         bool afterString = false;
         for (const auto& c : line)
         {
-            if (afterString)
+            // comment
+            if (c == '#' && !stringMode) break;
+            if (afterString && c != ' ')
             {
-                if (c == '#') break;
-                if (c != ' ')
-                    return ErrorNode(lineNumber,
-                                     "Only comments can follow strings.");
+                return ErrorNode(lineNumber,
+                                 "Only comments can follow strings.");
             }
             if (stringMode)
             {
@@ -65,8 +66,6 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(const std::string& filename)
             lineBegin = lineNumber;
             if (c == ' ')
                 continue;
-            else if (c == '#')
-                break;
             else if (c == '"')
             {
                 assert(collected == "");
@@ -77,7 +76,7 @@ std::unique_ptr<CFLNode> CFLNode::parseCFL(const std::string& filename)
             {
                 // handle node
                 const auto name = collected;
-                if (name.size() <= 0)
+                if (name.empty())
                 {
                     return ErrorNode(lineNumber, "Node names cannot be empty.");
                 }
@@ -196,7 +195,7 @@ std::vector<std::string> CFLNode::values() const
 std::string CFLNode::value(const std::string& defaultValue) const
 {
     assert(valid());
-    assert(m_values.size() > 0);
+    assert(!m_values.empty());
     if (m_values[0] == "")
     {
         return defaultValue;
@@ -224,6 +223,26 @@ CFLNode* CFLNode::operator[](const std::string& key)
             return child.get();
         }
     }
-    return addChild(key, m_level + 1);
+    return nullptr;
 }
+
+void CFLNode::print() const
+{
+    for (int i = 0; i < m_level; ++i)
+    {
+        std::cout << " ";
+    }
+    std::cout << m_name << ": ";
+
+    for (const auto& value : m_values)
+    {
+        std::cout << value << ", ";
+    }
+    std::cout << std::endl;
+    for (const auto& child : m_children)
+    {
+        child->print();
+    }
+}
+
 }  // namespace util
