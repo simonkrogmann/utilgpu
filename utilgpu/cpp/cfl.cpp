@@ -186,7 +186,7 @@ std::string CFLNode::name() const
     return m_name;
 }
 
-std::vector<std::string> CFLNode::values() const
+const std::vector<std::string>& CFLNode::values() const
 {
     assert(valid());
     return m_values;

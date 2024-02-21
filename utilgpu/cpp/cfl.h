@@ -22,7 +22,7 @@ public:
     CFLNode* parent() const;
     const std::vector<std::unique_ptr<CFLNode>>& children() const;
     std::string name() const;
-    std::vector<std::string> values() const;
+    const std::vector<std::string>& values() const;
     std::string value(const std::string& defaultValue = "") const;
     float value(const float& defaultValue) const;
     int value(const int& defaultValue) const;
